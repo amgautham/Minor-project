@@ -10,7 +10,9 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #4070f4;
+  /* background: #08f34fad; */
+  background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20200714/pngtree-modern-double-color-futuristic-neon-background-image_351866.jpg");
+
 }
 .wrapper{
   position: relative;
@@ -20,6 +22,7 @@ body{
   padding: 34px;
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  
 }
 .wrapper h2{
   position: relative;
@@ -35,7 +38,7 @@ body{
   height: 3px;
   width: 28px;
   border-radius: 12px;
-  background: #4070f4;
+  background: #19c409;
 }
 .wrapper form{
   margin-top: 30px;
@@ -99,5 +102,5 @@ select {
   padding: 16px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #f1f1f1;
+  background-color: #ffffff;
 }

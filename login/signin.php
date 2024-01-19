@@ -11,7 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
-            echo "Login successful!";
+            header("Location: /Minor project/main/menu.html");
+            exit;
         } else {
             echo "Incorrect password!";
         }
@@ -19,3 +20,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "User not found!";
     }
 }
+?>

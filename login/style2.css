@@ -97,10 +97,17 @@ form .text h3 a:hover{
   text-decoration: underline;
 }
 
-select {
-  width: 100%;
-  padding: 16px 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #ffffff;
+
+
+select:focus
+ {
+  border: 2px solid rgb(16, 0, 0);
+  outline: 2px solid rgb(0, 0, 0);
+}
+
+#sub{
+  width:355px;
+  max-width: 360px;
+  min-width: 360px;
+  height: 52px;
 }

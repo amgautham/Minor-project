@@ -2,29 +2,30 @@
 include('db.php'); // Include your database connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if attendance data is submitted
-    if (isset($_POST['attendance']) && isset($_POST['attendance_date'])) {
-        // Get the attendance data from the form
-        $attendanceData = $_POST['attendance'];
-        $attendanceDate = $_POST['attendance_date'];
+    $subject = $_POST['subject'];
+    $attendance_date = $_POST['attendance_date'];
+    $periods = $_POST['periods'];
+    $attendanceData = $_POST['attendance'];
 
-        // Loop through the attendance data
-        foreach ($attendanceData as $studentId => $present) {
-            // Prepare the SQL statement to insert attendance record
-            $sql = "INSERT INTO Attendance (student_id, attendance_date, present) VALUES (?, ?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("iss", $studentId, $attendanceDate, $present);
+    foreach ($attendanceData as $studentId => $attendance) {
+        // Update total periods for the student
+        $sql = "UPDATE students SET total_periods = total_periods + $periods WHERE id = $studentId";
+        $conn->query($sql);
 
-            // Execute the SQL statement
-            if ($stmt->execute()) {
-                echo "Attendance marked successfully!";
-            } else {
-                echo "Error: " . $conn->error;
-            }
+        // Update periods attended for the student
+        $attendedPeriods = count($attendance);
+        $sql = "UPDATE students SET periods_attended = periods_attended + $attendedPeriods WHERE id = $studentId";
+        $conn->query($sql);
+
+        // Insert attendance record for each checkbox checked
+        foreach ($attendance as $period) {
+            $present = 1; // Assuming checkbox checked indicates present
+            $sql = "INSERT INTO attendance (student_id, attendance_date, present) VALUES ($studentId, '$attendance_date', $present)";
+            $conn->query($sql);
         }
-    } else {
-        echo "No attendance data received!";
     }
+
+    echo "Attendance marked successfully!";
 } else {
     echo "Invalid request method!";
 }

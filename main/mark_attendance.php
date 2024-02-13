@@ -1,45 +1,3 @@
-<?php
-include('db.php'); // Include your database connection file
-
-// Function to sanitize input data
-function sanitize($data)
-{
-    return htmlspecialchars(stripslashes(trim($data)));
-}
-
-// Function to update attendance
-function updateAttendance($conn, $attendanceData)
-{
-    foreach ($attendanceData as $studentId => $periods) {
-        $totalPeriods = count($periods);
-        $studentId = sanitize($studentId);
-
-        // Update total_periods and periods_attended in the students table
-        $sqlUpdate = "UPDATE students SET total_periods = total_periods + $totalPeriods, periods_attended = periods_attended + $totalPeriods WHERE id = $studentId";
-        $conn->query($sqlUpdate);
-
-        // Insert attendance records into the Attendance table
-        $attendanceDate = sanitize($_POST['attendance_date']);
-        foreach ($periods as $period) {
-            $sqlInsert = "INSERT INTO Attendance (student_id, attendance_date, present) VALUES ($studentId, '$attendanceDate', $period)";
-            $conn->query($sqlInsert);
-        }
-    }
-
-    echo "Attendance marked successfully!";
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['attendance']) && isset($_POST['attendance_date'])) {
-    // Sanitize input data
-    $attendanceData = $_POST['attendance'];
-    $attendanceData = array_map('sanitize', $attendanceData);
-
-    // Call the function to update attendance
-    updateAttendance($conn, $attendanceData);
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['attendance']) && isset
         <label for="subject">Filter by Subject:</label>
         <select name="subject" id="subject">
             <?php
+            include('db.php'); // Include your database connection file
+
             // Fetch unique subjects from the subjects table
             $sql = "SELECT DISTINCT subject FROM subjects";
             $result = $conn->query($sql);
@@ -95,32 +55,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['attendance']) && isset
     </form>
 
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['subject']) && isset($_POST['periods']) && isset($_POST['attendance_date'])) {
-        $subject = sanitize($_POST['subject']);
-        $periods = sanitize($_POST['periods']);
-        $attendance_date = sanitize($_POST['attendance_date']);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $subject = $_POST['subject'];
+        $periods = $_POST['periods'];
+        $attendance_date = $_POST['attendance_date'];
 
         // Fetch students for the selected subject
         $sql = "SELECT * FROM students WHERE open_elective = '$subject'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            echo "<form method='post' action=''>";
+            echo "<form method='post' action='update_attendance.php'>";
             echo "<table>";
-            echo "<tr><th>Select All</th><th>Roll No</th><th>Name</th><th>Branch</th>";
+            echo "<tr><th>Roll No</th><th>Name</th><th>Branch</th>";
             for ($i = 1; $i <= $periods; $i++) {
-                echo "<th>Period $i</th>";
+                echo "<th>Period $i <input type='checkbox' class='check-all' data-period='$i'></th>";
             }
             echo "</tr>";
 
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td><input type='checkbox' name='attendance[" . $row['id'] . "][]' class='check-all'></td>";
                 echo "<td>" . $row['rollno'] . "</td>";
                 echo "<td>" . $row['name'] . "</td>";
                 echo "<td>" . $row['branch'] . "</td>";
                 for ($i = 1; $i <= $periods; $i++) {
-                    echo "<td><input type='checkbox' name='attendance[" . $row['id'] . "][]' value='$i'></td>";
+                    echo "<td><input type='checkbox' name='attendance[" . $row['id'] . "][]' value='$i' class='attendance-checkbox period-$i'></td>";
                 }
                 echo "</tr>";
             }
@@ -132,7 +91,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['attendance']) && isset
         }
     }
     ?>
+
 </div>
+
+<script>
+    // Select all checkboxes for a specific period
+    document.querySelectorAll('.check-all').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            let period = this.dataset.period;
+            document.querySelectorAll('.attendance-checkbox.period-' + period).forEach(function(checkbox) {
+                checkbox.checked = this.checked;
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

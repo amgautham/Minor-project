@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $row['password'])) 
         {   
             $sub="SELECT subject FROM users WHERE username=$username";
-            header("Location: /Minor project/main/menu.html");
+            header("Location: /Minor-project/main/menu.html");
             exit;
         } else {
             echo "Incorrect password!";

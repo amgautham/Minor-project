@@ -8,47 +8,58 @@
     <title>Your Website</title>
 
     <style>
-        .container {
-          display: inline-block;
-          cursor: pointer;
-        }
         
-        .bar1, .bar2, .bar3 {
-          width: 35px;
-          height: 5px;
-          background-color: #333;
-          margin: 6px 0;
-          transition: 0.4s;
-        }
-        
-        .change .bar1 {
-          transform: translate(0, 11px) rotate(-45deg);
-        }
-        
-        .change .bar2 {opacity: 0;}
-        
-        .change .bar3 {
-          transform: translate(0, -11px) rotate(45deg);
-        }
-        </style>
 
-    <style>
-        .navbar {
-         background-color: #06134b;
-         overflow: hidden;
-         position: fixed;
-         top: 0;
-         width: 100%;
-         transition: all 0.5s ease; /* Add transition for smooth effect */
-         text-align: center; /* Add this line to center the text */
-     }
-     </style>
+.navbar {
+    background-color: #06134b;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: all 0.5s ease; /* Add transition for smooth effect */
+    text-align: center; /* Center the text */
+}
+
+.buttoncontainer {
+    display: inline-block;
+    cursor: pointer;
+    float: right; /* Align the button container to the right */
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #e8e8e8; /* Light Grey */
+    margin: 8px 10px;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    transform: translate(0, 13px) rotate(-45deg);
+}
+
+.change .bar2 {
+    opacity: 0;
+}
+
+.change .bar3 {
+    transform: translate(0, -13px) rotate(45deg);
+}
+</style>
+
+    
 
      </head>
      <body>
-         <div class="navbar">
-             <h2>Open Elective Attendance Management System</h2>
-         </div>
+        <div class="navbar">
+            <div class="buttoncontainer" onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <h2>Open Elective Attendance Management System</h2>
+        </div>
+        
      <div style="padding-top:50px;" class="container">
      
         <div class="tile-container">
@@ -67,11 +78,7 @@
         </div>
     </div>
 
-    <div class="container" onclick="myFunction(this)">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-      </div>
+    
 
     <script>
         function navigateTo(url)

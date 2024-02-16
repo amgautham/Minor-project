@@ -122,7 +122,7 @@
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            echo "<form method='post' action='update_attendance.php'>";
+            echo "<form method='post' action='process_attendance.php'>";
             echo "<table>";
             echo "<tr><th>Roll No</th><th>Name</th><th>Branch</th>";
             for ($i = 1; $i <= $periods; $i++) {

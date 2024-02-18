@@ -2,9 +2,7 @@
 include('db.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
+    session_start();
     $sql = "SELECT * FROM users WHERE username = '$username'";
     $result = $conn->query($sql);
 
@@ -13,7 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $row['password'])) 
         {   
             $sub="SELECT subject FROM users WHERE username=$username";
-            header("Location: /Minor-project/main/menu.html");
+            $_SESSION['username'] = $_POST['username']; 
+            $_SESSION['password']=$_POST['password'];
+            $_SESSION['subject']=$sub;        
+            header("Location: /Minor-project/main/menu.php");
             exit;
         } else {
             echo "Incorrect password!";

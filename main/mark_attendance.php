@@ -123,6 +123,8 @@
 
         if ($result->num_rows > 0) {
             echo "<form method='post' action='process_attendance.php'>";
+            echo"<input type='hidden' name='periods' id='periods'/>";
+            echo"<input type='hidden' name='atten' id='periods'/>";
             echo "<table>";
             echo "<tr><th>Roll No</th><th>Name</th><th>Branch</th>";
             for ($i = 1; $i <= $periods; $i++) {

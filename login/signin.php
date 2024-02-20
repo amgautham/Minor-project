@@ -1,25 +1,34 @@
 <?php
 include('db.php');
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+ {
+    $username = $_POST['username']; 
     $sql = "SELECT * FROM users WHERE username = '$username'";
     $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
+    if ($result->num_rows > 0) 
+    {
         $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) 
-        {   
-            $sub="SELECT subject FROM users WHERE username=$username";
-            $_SESSION['username'] = $_POST['username']; 
-            $_SESSION['password']=$_POST['password'];
-            $_SESSION['subject']=$sub;        
+        if (password_verify($password, $row['password']))
+         {   
+            
+            $sub = $row['subject'];
+
+            $_SESSION['username'] = $username; 
+            $_SESSION['subject'] = $sub;
+           
+
             header("Location: /Minor-project/main/menu.php");
             exit;
-        } else {
+        } else 
+        {
             echo "Incorrect password!";
         }
-    } else {
+    } 
+    else
+     {
         echo "User not found!";
     }
 }

@@ -3,7 +3,7 @@ include('db.php'); // Include your database connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if all required fields are present
-    if (isset($_POST['attendance_date']) && isset($_POST['periods'])) {
+    if (isset($_POST['attendance_date']) && isset($_POST['periods']) && isset($_POST['attendance'])) {
         $attendance_date = $_POST['attendance_date'];
         $periods = $_POST['periods'];
         
@@ -23,17 +23,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $branch = $row_student['branch'];
                 $open_elective = $row_student['open_elective'];
                 
-                // Insert attendance data into the attendance table
-                $sql_insert_attendance = "INSERT INTO attendance (rollno, name, branch, open_elective, periods_attended, total_periods, attendance_date) VALUES ('$rollno', '$name', '$branch', '$open_elective', $total_periods_attended, $periods, '$attendance_date')";
-                if ($conn->query($sql_insert_attendance) === TRUE) {
-                    echo "Attendance recorded successfully for $name<br>";
-                } else {
-                    echo "Error: " . $sql_insert_attendance . "<br>" . $conn->error;
+                // Insert attendance data into the attendance table if the checkbox is checked
+                if (!empty($periods_attended)) {
+                    $sql_insert_attendance = "INSERT INTO attendance (rollno, name, branch, open_elective, periods_attended, total_periods, attendance_date) VALUES ('$rollno', '$name', '$branch', '$open_elective', $total_periods_attended, $periods, '$attendance_date')";
+                    if ($conn->query($sql_insert_attendance) === TRUE) {
+                        echo "Attendance recorded successfully for $name<br>";
+                    } else {
+                        echo "Error: " . $sql_insert_attendance . "<br>" . $conn->error;
+                    }
                 }
             }
         }
     } else {
-        echo "Attendance date or periods missing!";
+        echo "Attendance date, periods, or attendance data missing!";
     }
 } else {
     echo "Invalid request!";

@@ -69,7 +69,7 @@
             <div class="tile" onclick="navigateTo('am1.php')">
                 <h2>Mark Attendance</h2>
             </div>
-            <div class="tile" onclick="navigateTo('./edit/index.html')">
+            <div class="tile" onclick="navigateTo('edit.php')">
                 <h2>Edit Attendance</h2>
             </div>
             <div class="tile" onclick="navigateTo('report.php')">

@@ -111,8 +111,10 @@ if (isset($_POST['submit_attendance'])) {
     updateTotalPeriods($conn, $periods);
 }
 
+$sql_mark="INSERT INTO attendance_marked (date) VALUES ('$attendance_date')";
+
 function updateTotalPeriods($conn, $periods) {
-    $sql_update_total_periods = "UPDATE total_periods SET total_periods = total_periods + $periods";
+    $sql_update_total_periods = "UPDATE total_periods SET total_periods = total_periods + $periods where id =1";
     if ($conn->query($sql_update_total_periods) !== TRUE) {
         echo "Error updating total periods: " . $conn->error;
     }

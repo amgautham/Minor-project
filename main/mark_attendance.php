@@ -37,7 +37,7 @@
         <button type="submit">Filter</button>
     </form>
 
-    <?php
+<?php
 include('db.php');
 session_start();
 
@@ -48,6 +48,29 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['subject'])) {
 
 $username = $_SESSION['username'];
 $subject = $_SESSION['subject'];
+
+
+// Fetch table name for the selected subject from the subjects table
+$sql_table = "SELECT table_name FROM subjects WHERE subject = '$subject'";
+$result_table = $conn->query($sql_table);
+
+if (!$result_table) {
+    // Check for query execution failure
+    echo "Error fetching table name: " . $conn->error;
+} else {
+    // Check if any rows were returned
+    if ($result_table->num_rows > 0) {
+        $row_table = $result_table->fetch_assoc();
+        $table_name = $row_table['table_name'];
+        echo "Table name for $subject: $table_name";
+        // Proceed with the rest of the code using $table_name
+    } else {
+        echo "Table name not found for $subject";
+    }
+}
+
+
+
 
 $periods = isset($_POST['periods']) ? $_POST['periods'] : 1;
 $attendance_date = isset($_POST['attendance_date']) ? $_POST['attendance_date'] : date('Y-m-d');

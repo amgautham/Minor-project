@@ -121,7 +121,7 @@ if (isset($_POST['submit_attendance'])) {
             $row = $result->fetch_assoc();
             $rollno = $row['rollno'];
             $name = $row['name'];
-            $sql_insert = "INSERT INTO attendance (rollno, name, periods_attended, attendance_date) VALUES ('$rollno', '$name', '$periods_attended', '$attendance_date')";
+            $sql_insert = "INSERT INTO $table_name (rollno, name, periods_attended, attendance_date) VALUES ('$rollno', '$name', '$periods_attended', '$attendance_date')";
             if ($conn->query($sql_insert) !== TRUE) {
                 echo "Error: " . $sql_insert . "<br>" . $conn->error;
             }
@@ -131,13 +131,13 @@ if (isset($_POST['submit_attendance'])) {
     }
     echo "Attendance data inserted successfully.";
     // Update total periods
-    updateTotalPeriods($conn, $periods);
+    updateTotalPeriods($conn, $periods, $subject, $attendance_date);
 }
 
-$sql_mark="INSERT INTO attendance_marked (date) VALUES ('$attendance_date')";
 
-function updateTotalPeriods($conn, $periods) {
-    $sql_update_total_periods = "UPDATE total_periods SET total_periods = total_periods + $periods where id =1";
+
+function updateTotalPeriods($conn, $periods, $subject, $attendance_date) {
+    $sql_update_total_periods = "INSERT INTO total_periods_tracker (subject, total_periods, date) VALUES ('$subject', '$periods', '$attendance_date')";
     if ($conn->query($sql_update_total_periods) !== TRUE) {
         echo "Error updating total periods: " . $conn->error;
     }

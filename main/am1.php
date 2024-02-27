@@ -78,3 +78,27 @@
 
 </body>
 </html>
+<?php
+/*include('db.php'); // Make sure to include your database connection file
+
+function deleteAttendanceByDate($attendance_date) {
+    global $conn; // Access the database connection within the function
+
+    // Ensure $attendance_date is properly formatted and safe for use in the SQL query
+    $attendance_date = $conn->real_escape_string($attendance_date);
+
+    // Construct the SQL query to delete attendance records for the given date
+    $sql_delete = "DELETE FROM $table_name WHERE attendance_date = '$attendance_date'";
+
+    // Execute the delete query
+    if ($conn->query($sql_delete) === TRUE) {
+        echo "Attendance data for $attendance_date deleted successfully.";
+    } else {
+        echo "Error deleting attendance data: " . $conn->error;
+    }
+}
+
+// Example usage:
+$attendance_date_to_delete = "2024-02-27"; // Example date to delete attendance for
+deleteAttendanceByDate($attendance_date_to_delete);*/
+?>-->

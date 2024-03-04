@@ -22,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $_SESSION['username'] = $username;
                 $_SESSION['subject'] = $sub;
-
-                header("Location: /Minor-project/main/menu.php");
+                header("Location: /Minor-project/main/pig.php");
+               // header("Location: /Minor-project/main/menu.php");
                 exit;
             } else {
                 echo "Incorrect password!";

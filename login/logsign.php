@@ -1,11 +1,103 @@
+<?php
+include('db.php');
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['login'])) {
+        // Sign In Logic
+        $username = $_POST['usernamelog'];
+        $password = $_POST['passwordlog'];
+
+        $sql = "SELECT * FROM users WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            if (password_verify($password, $row['password'])) {
+                $sub = $row['subject'];
+
+                $_SESSION['username'] = $username;
+                $_SESSION['subject'] = $sub;
+
+                header("Location: /Minor-project/main/menu.php");
+                exit;
+            } else {
+                echo "Incorrect password!";
+            }
+        } else {
+            echo "User not found!";
+        }
+
+        $stmt->close(); // Close the statement
+        $conn->close(); // Close the database connection
+
+    } elseif (isset($_POST['signup'])) {
+        // Sign Up Logic
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $subject = $_POST['subject'];
+
+        // Check if the subject is already taken
+        $subject_check_sql = "SELECT * FROM users WHERE subject = ?";
+        $subject_check_stmt = $conn->prepare($subject_check_sql);
+        $subject_check_stmt->bind_param("s", $subject);
+        $subject_check_stmt->execute();
+
+        $subject_check_result = $subject_check_stmt->get_result();
+
+        if ($subject_check_result->num_rows > 0) {
+            echo "Subject is already taken!";
+            exit; // Stop execution if the subject is taken
+        }
+
+        // Check if the username is already taken
+        $username_check_sql = "SELECT * FROM users WHERE username = ?";
+        $username_check_stmt = $conn->prepare($username_check_sql);
+        $username_check_stmt->bind_param("s", $username);
+        $username_check_stmt->execute();
+
+        $username_check_result = $username_check_stmt->get_result();
+
+        if ($username_check_result->num_rows > 0) {
+            echo "Username already exists!";
+            exit; // Stop execution if the username is taken
+        }
+
+        // Use prepared statements to insert user data securely
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $insert_sql = "INSERT INTO users (username, password, subject) VALUES (?, ?, ?)";
+        $insert_stmt = $conn->prepare($insert_sql);
+        $insert_stmt->bind_param("sss", $username, $hashed_password, $subject);
+
+        if ($insert_stmt->execute()) {
+            header("Location: /Minor-project/main/menu.php");
+            exit;
+        } else {
+            echo "Error registering user!";
+        }
+
+        $insert_stmt->close(); // Close the insert statement
+        $username_check_stmt->close(); // Close the username check statement
+        $subject_check_stmt->close(); // Close the subject check statement
+        $conn->close(); // Close the database connection
+    }
+}
+?>
+
 <!DOCTYPE html>
 <!-- saved from url=(0044)file:///C:/Users/gouth/Downloads/signin.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AttendWise Elect</title>
+    <!-- Your CSS styles go here -->
     <style>
-        body {
+         body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -181,7 +273,7 @@ a:hover {
 }
 
 
-    </style>
+</style>
 </head>
 <body>
     <div class="left-section">
@@ -191,45 +283,42 @@ a:hover {
     </div>
     <div class="right-section">
         <h2>Login</h2>
-        <form action="signin.php" method="post">
+        <form action="logsign.php" method="post">
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="namelog">Name</label>
                 <input type="text" id="namelog" name="usernamelog" required="">
             </div>
-            
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="passwordlog">Password</label>
                 <input type="password" id="passwordlog" name="passwordlog" required="">
             </div>
-			<div class="button-container">
-				<button type="submit">Login</button>
-			</div>
+            <div class="button-container">
+                <button type="submit" name="login">Login</button>
+            </div>
         </form>
         <p>Already registered? <a href="#" id="signupLink">SignUp</a></p>
     </div>
     <div class="second-right-section" style="display: none;">
         <h2>Register</h2>
-        <form action="signup.php" method="post" id="signUpForm">
+        <form action="logsign.php" method="post" id="signUpForm">
             <div class="form-group">
                 <label for="name">Create Username</label>
                 <input type="text" id="name" name="username" required="">
             </div>
-            
             <div class="form-group">
                 <label for="password">Create Password</label>
                 <input type="password" id="password" name="password" required="">
             </div>
-            
             <div class="form-group">
                 <label for="confirm_password">Confirm Password</label>
                 <input type="password" id="confirm_password" name="confirm_password" required="">
             </div>
-			<div class="form-group">
+            <div class="form-group">
                 <label for="Subject">Choose Subject</label>
                 <select name="subject" id="sub">
-					<option disabled selected>(Select Subject)</option>
-					<option value="	Introduction to IoT">Introduction to IoT</option>
-					<option value="Fundamentals of Web Technology">Fundamentals of Web Technology</option>
+                    <option disabled selected>(Select Subject)</option>
+                    <option value="Introduction to IoT">Introduction to IoT</option>
+                    <option value="Fundamentals of Web Technology">Fundamentals of Web Technology</option>
 					<option value="Multimedia">Multimedia</option>
 					<option value="Cloud Computing">Cloud Computing</option>
 					<option value="Renewable Energy and Environment">Renewable Energy and Environment</option>
@@ -248,11 +337,12 @@ a:hover {
 					<option value="Operation Research">Operation Research</option>
 					<option value="Renewable Energy Technologies">Renewable Energy Technologies</option>
 					<option value="Product Design">Product Design</option>
-				</select>
+                    <!-- Add other options as needed -->
+                </select>
             </div>
-			<div class="button-container">
-				<button type="submit">SignUp</button>
-			</div>
+            <div class="button-container">
+                <button type="submit" name="signup">SignUp</button>
+            </div>
         </form>
         <p>Already registered? <a href="#" id="loginLink">Login</a></p>
     </div>
@@ -261,11 +351,12 @@ a:hover {
         <div id="line3" class="typing-animation1">Create platform for tracking student attendance in elective subjects at your college.</div>
         <div id="line4" class="typing-animation2">Create in to manage attendance efficiently and stay organized.</div>
     </div>
-    
+    <!-- Include your existing HTML content from signin.html here -->
 
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const signUpLink = document.getElementById('signupLink');
+        // Your JavaScript code goes here
+        document.addEventListener('DOMContentLoaded', function() {
+            const signUpLink = document.getElementById('signupLink');
     const loginLink = document.getElementById('loginLink');
     const rightSection = document.querySelector('.right-section');
     const secondRightSection = document.querySelector('.second-right-section');
@@ -289,29 +380,25 @@ document.addEventListener('DOMContentLoaded', function() {
         secondLeftSection.style.display = 'none';
     });
 
-    const signUpForm = document.getElementById('signUpForm');
-    
-    signUpForm.addEventListener('submit', function(event) {
-        const subjectSelect = document.getElementById('sub');
-        const passwordInput = document.getElementById('password');
-        const confirmPasswordInput = document.getElementById('confirm_password');
+            const signUpForm = document.getElementById('signUpForm');
 
-        // Check if a subject is selected
-        if (passwordInput.value !== confirmPasswordInput.value) {
-            alert("Password and confirm password do not match.");
-            event.preventDefault(); // Prevent form submission
-        }
-        if (subjectSelect.value === "(Select Subject)") {
-            alert("Please choose a subject.");
-            event.preventDefault(); // Prevent form submission
-        }
+            signUpForm.addEventListener('submit', function(event) {
+                const subjectSelect = document.getElementById('sub');
+                const passwordInput = document.getElementById('password');
+                const confirmPasswordInput = document.getElementById('confirm_password');
 
-        // Check if password and confirm password match
-    });
-});
-
-
+                // Check if a subject is selected
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    alert("Password and confirm password do not match.");
+                    event.preventDefault(); // Prevent form submission
+                }
+                if (subjectSelect.value === "(Select Subject)") {
+                    alert("Please choose a subject.");
+                    event.preventDefault(); // Prevent form submission
+                }
+                // Check if password and confirm password match
+            });
+        });
     </script>
-
-
-</body></html>
+</body>
+</html>

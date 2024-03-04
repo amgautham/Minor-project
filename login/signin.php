@@ -3,12 +3,15 @@ include('db.php');
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username']; 
-    $password = $_POST['password']; // Get the password from the form
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Hash the password
+    $username = $_POST['usernamelog']; 
+    $password = $_POST['passwordlog']; // Get the password from the form
 
-    $sql = "SELECT * FROM users WHERE username = '$username'";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -26,5 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "User not found!";
     }
+
+    $stmt->close(); // Close the statement
+    $conn->close(); // Close the database connection
 }
 ?>

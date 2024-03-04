@@ -76,7 +76,7 @@ if ($profile_result->num_rows > 0) {
       margin-bottom: 20px;
     }
 
-    .button {
+    .button-mark,.button-report {
       display: inline-block;
       width: 250px;  /* Increased width */
       height: 250px; /* Increased height */
@@ -88,7 +88,7 @@ if ($profile_result->num_rows > 0) {
       transition: background-color 0.3s, transform 0.3s;
     }
 
-    .button:hover {
+    .button-mark,.button-report:hover {
       background-color: #ddd;
       transform: scale(1.1);
     }
@@ -119,72 +119,55 @@ if ($profile_result->num_rows > 0) {
     }
 
     .profile-section {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        text-align: left; /* Align the content to the left */
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      text-align: left; /* Align the content to the left */
     }
 
     .profile img {
-        border-radius: 50%;
-        max-width: 100px;
-        margin-right: 20px;
+      border-radius: 50%;
+      max-width: 100px;
+      margin-right: 20px;
     }
 
     .tags {
-        margin-top: 10px;
+      margin-top: 10px;
     }
 
     .tag {
-        background-color: red;
-        color: white;
-        padding: 5px 10px;
-        margin-right: 10px;
-        font-size: 12px;
-        border-radius: 5px;
+      background-color: red;
+      color: white;
+      padding: 5px 10px;
+      margin-right: 10px;
+      font-size: 12px;
+      border-radius: 5px;
     }
 
     .allocate-button {
-        padding: 20px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        display: block; /* Make the button a block-level element */
-        width: 100%; /* Full width of its container */
-        text-align: center;
+      padding: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: block; /* Make the button a block-level element */
+      width: 100%; /* Full width of its container */
+      text-align: center;
     }
 
     .allocate-button:hover {
-        background-color: #45a049;
+      background-color: #45a049;
     }
 
     .bio {
-        padding: 20px;
+      padding: 20px;
     }
-    
   </style>
-  <script>
-    // Prevent caching and force a fresh page load when navigating back
-    window.onpageshow = function (event) {
-      if (event.persisted) {
-        window.location.reload();
-      }
-    };
 
-    // Function to logout and redirect to login page
-    function logout() {
-      // Clear the session on the server side
-      <?php session_destroy(); ?>
-
-      // Redirect to the login page
-      window.location.href = "logsign.php";
-    }
-  </script>
 </head>
 <body>
 
@@ -204,66 +187,123 @@ if ($profile_result->num_rows > 0) {
       <div class="title">Welcome to AttendWise Elect</div>
       <div class="hashtag">#innovation</div>
 
-      <div class="button" onclick="showAlert('am1.php')">
+      <div class="button-mark" onclick="navigate('am1.php')">
         <img src="mark.png" alt="Mark" class="icon">
         <div class="label">Mark</div>
       </div>
 
-      <div class="button" onclick="showAlert('report.php')">
+      <div class="button-report" onclick="navigate('report.php')">
         <img src="report.png" alt="Report" class="icon">
         <div class="label">Report</div>
       </div>
     </section>
+  </div>
 
-
-<!-- Profile Section -->
-<section id="profile" class="profile-section">
-  <header>
-    <div class="profile">
-      <!-- Update the image source accordingly -->
-      <img src="pr.png" alt="<?php echo $username; ?>">
-      <h1><?php echo $username; ?></h1>
-      <p><?php echo $user_subject; ?></p>
-      <div class="tags">
-        <!-- You can dynamically generate tags based on user data -->
-        <span class="tag">Looking for new opportunities</span>
-        <span class="tag">Interested in business trips</span>
+  <!-- Profile Section -->
+  <section id="profile" class="profile-section">
+    <header>
+      <div class="profile">
+        <!-- Update the image source accordingly -->
+        <img src="pr.png" alt="<?php echo $username; ?>">
+        <h1><?php echo $username; ?></h1>
+        <p><?php echo $user_subject; ?></p>
+        <div class="tags">
+          <!-- You can dynamically generate tags based on user data -->
+          <span class="tag">Looking for new opportunities</span>
+          <span class="tag">Interested in business trips</span>
+        </div>
+        <button class="allocate-button" onclick="navigate('allocate.php')">Allocate students with open elective subjects</button>
       </div>
-      <button class="allocate-button" onclick="showAlert('allocate.php')">Allocate students with open elective subjects</button>
-    </div>
-  </header>
+    </header>
 
-  <!-- Logout button -->
-  <button class="allocate-button" onclick="logout()">Logout</button>
+    <!-- Logout button -->
+    <button class="allocate-button" onclick="logout()">Logout</button>
 
-  <section class="bio">
-    <h2>Bio</h2>
-    <p>Jill is a Regional Director who travels 4–6 times each month for work. She has been engaging in various niche travels, and she understands that security and safety are essential. She is frustrated by the fact that no matter how frequently Jill takes similar trips, she spends hours on end doing booking via SMEs’ protocols that should (obviously) be as digitized as she is.</p>
+    <section class="bio">
+      <h2>Bio</h2>
+      <p>Jill is a Regional Director who travels 4–6 times each month for work. She has been engaging in various niche travels, and she understands that security and safety are essential. She is frustrated by the fact that no matter how frequently Jill takes similar trips, she spends hours on end doing booking via SMEs’ protocols that should (obviously) be as digitized as she is.</p>
+    </section>
   </section>
-</section>
 
   <script>
-    function showAlert(url) {
+    // Function to navigate and update the browser history
+    function navigate(url) {
+      // Use location.href to navigate without triggering a full page reload
       window.location.href = url;
     }
-    function logout() {
-    // Redirect to the login page
-    window.location.href = "logsign.php";
-  }
 
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('section');
-      sections.forEach(section => {
-        section.classList.remove('visible');
+    // Function to logout and redirect to login page
+    function logout() {
+      // Use location.href to navigate without triggering a full page reload
+      window.location.href = '/Minor-project/login/logsign.php';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Check if the user is logged in, prevent navigating back to the menu page
+      if (!<?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>) {
+        window.location.href = '/Minor-project/login/logsign.php';
+      }
+
+      // Assign the navigate function to your button clicks
+      const markButton = document.querySelector('.button-mark');
+      const reportButton = document.querySelector('.button-report');
+
+      markButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        navigate('am1.php');
       });
 
-      const selectedSection = document.getElementById(sectionId);
-      selectedSection.classList.add('visible');
-    }
+      reportButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        navigate('report.php');
+      });
+
+      // Listen for popstate event (back/forward button)
+      window.onpopstate = function (event) {
+        if (event.state) {
+          // Force a full page reload after a short delay
+          setTimeout(function () {
+            window.location.reload();
+          }, 100);
+        }
+      };
+
+      // Handle navigation to sections
+      function showSection(sectionId) {
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+          section.classList.remove('visible');
+        });
+
+        const selectedSection = document.getElementById(sectionId);
+        selectedSection.classList.add('visible');
+      }
+
+      // Attach the showSection function to your navigation links
+      const homeLink = document.querySelector('a[href="#home"]');
+      const profileLink = document.querySelector('a[href="#profile"]');
+      const settingsLink = document.querySelector('a[href="#settings"]');
+
+      homeLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        showSection('home');
+      });
+
+      profileLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        showSection('profile');
+      });
+
+      settingsLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        showSection('settings');
+      });
+    });
   </script>
 
 </body>
 </html>
+
 <?php
 } else {
   // Handle the case where the user data is not found

@@ -190,16 +190,16 @@ a:hover {
         <div id="line2" class="typing-animation2">Sign in to manage attendance efficiently and stay organized.</div>
     </div>
     <div class="right-section">
-        <h2>Register</h2>
+        <h2>Login</h2>
         <form action="signin.php" method="post">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="username" required="">
+                <input type="text" id="namelog" name="usernamelog" required="">
             </div>
             
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required="">
+                <input type="password" id="passwordlog" name="passwordlog" required="">
             </div>
 			<div class="button-container">
 				<button type="submit">Login</button>
@@ -209,7 +209,7 @@ a:hover {
     </div>
     <div class="second-right-section" style="display: none;">
         <h2>Register</h2>
-        <form action="signup.php" method="post">
+        <form action="signup.php" method="post" id="signUpForm">
             <div class="form-group">
                 <label for="name">Create Username</label>
                 <input type="text" id="name" name="username" required="">
@@ -264,31 +264,53 @@ a:hover {
     
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const signUpLink = document.getElementById('signupLink');
-            const loginLink = document.getElementById('loginLink');
-            const rightSection = document.querySelector('.right-section');
-            const secondRightSection = document.querySelector('.second-right-section');
-            const leftSection = document.querySelector('.left-section');
-            const secondLeftSection = document.querySelector('.second-left-section');
+document.addEventListener('DOMContentLoaded', function() {
+    const signUpLink = document.getElementById('signupLink');
+    const loginLink = document.getElementById('loginLink');
+    const rightSection = document.querySelector('.right-section');
+    const secondRightSection = document.querySelector('.second-right-section');
+    const leftSection = document.querySelector('.left-section');
+    const secondLeftSection = document.querySelector('.second-left-section');
 
-            signUpLink.addEventListener('click', function(event) {
-                event.preventDefault();
-                rightSection.style.display = 'none';
-                secondRightSection.style.display = 'flex';
-                leftSection.style.display = 'none';
-                secondLeftSection.style.display = 'flex';
-                
-            });
+    signUpLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        rightSection.style.display = 'none';
+        secondRightSection.style.display = 'flex';
+        leftSection.style.display = 'none';
+        secondLeftSection.style.display = 'flex';
+        
+    });
 
-            loginLink.addEventListener('click', function(event) {
-                event.preventDefault();
-                rightSection.style.display = 'flex';
-                secondRightSection.style.display = 'none';
-                leftSection.style.display = 'flex';
-                secondLeftSection.style.display = 'none';
-            });
-        });
+    loginLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        rightSection.style.display = 'flex';
+        secondRightSection.style.display = 'none';
+        leftSection.style.display = 'flex';
+        secondLeftSection.style.display = 'none';
+    });
+
+    const signUpForm = document.getElementById('signUpForm');
+    
+    signUpForm.addEventListener('submit', function(event) {
+        const subjectSelect = document.getElementById('sub');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm_password');
+
+        // Check if a subject is selected
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            alert("Password and confirm password do not match.");
+            event.preventDefault(); // Prevent form submission
+        }
+        if (subjectSelect.value === "(Select Subject)") {
+            alert("Please choose a subject.");
+            event.preventDefault(); // Prevent form submission
+        }
+
+        // Check if password and confirm password match
+    });
+});
+
+
     </script>
 
 

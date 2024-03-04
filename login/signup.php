@@ -1,46 +1,54 @@
 <?php
 include('db.php');
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    
-    $create_password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
+    $username = $_POST['username']; 
+    $password = $_POST['password']; // Get the password from the form
+    $subject = $_POST['subject']; // Get the selected subject from the form
 
-    // Check if Create Password and Confirm Password match
-    if ($create_password !== $confirm_password) {
-        echo "Create Password and Confirm Password do not match.";
-    } else {
-        $password = password_hash($create_password, PASSWORD_DEFAULT);
-        $subject = mysqli_real_escape_string($conn, $_POST['subject']);
+    // Check if the subject is already taken
+    $subject_check_sql = "SELECT * FROM users WHERE subject = ?";
+    $subject_check_stmt = $conn->prepare($subject_check_sql);
+    $subject_check_stmt->bind_param("s", $subject);
+    $subject_check_stmt->execute();
 
-        // Check if username already exists
-        $check_username_sql = "SELECT * FROM users WHERE username = '$username'";
-        $result_username = $conn->query($check_username_sql);
+    $subject_check_result = $subject_check_stmt->get_result();
 
-        if ($result_username->num_rows > 0) {
-            echo "Username is already taken.";
-        } else {
-            // Check if subject already exists
-            $check_subject_sql = "SELECT * FROM users WHERE subject = '$subject'";
-            $result_subject = $conn->query($check_subject_sql);
-
-            if ($result_subject->num_rows > 0) {
-                echo "Subject is already taken.";
-            } else {
-                // If both username and subject are unique, proceed with insertion
-                $sql = "INSERT INTO users (username, password, subject) VALUES ('$username', '$password', '$subject')";
-
-                if ($conn->query($sql) === TRUE) {
-				header("Location: /Minor-project/main/menu.php");
-
-                } else {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
-                }
-            }
-        }
+    if ($subject_check_result->num_rows > 0) {
+        echo "Subject is already taken!";
+        exit; // Stop execution if the subject is taken
     }
-}
 
-$conn->close();
+    // Check if the username is already taken
+    $username_check_sql = "SELECT * FROM users WHERE username = ?";
+    $username_check_stmt = $conn->prepare($username_check_sql);
+    $username_check_stmt->bind_param("s", $username);
+    $username_check_stmt->execute();
+
+    $username_check_result = $username_check_stmt->get_result();
+
+    if ($username_check_result->num_rows > 0) {
+        echo "Username already exists!";
+        exit; // Stop execution if the username is taken
+    }
+
+    // Use prepared statements to insert user data securely
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $insert_sql = "INSERT INTO users (username, password, subject) VALUES (?, ?, ?)";
+    $insert_stmt = $conn->prepare($insert_sql);
+    $insert_stmt->bind_param("sss", $username, $hashed_password, $subject);
+
+    if ($insert_stmt->execute()) {
+        header("Location: /Minor-project/main/menu.php");
+        exit;
+    } else {
+        echo "Error registering user!";
+    }
+
+    $insert_stmt->close(); // Close the insert statement
+    $username_check_stmt->close(); // Close the username check statement
+    $subject_check_stmt->close(); // Close the subject check statement
+    $conn->close(); // Close the database connection
+}
 ?>

@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $_SESSION['username'] = $username;
                 $_SESSION['subject'] = $sub;
-                header("Location: /Minor-project/main/pig.php");
+                header("Location: /Minor-project/main/ae_main.html");
                // header("Location: /Minor-project/main/menu.php");
                 exit;
             } else {
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $insert_stmt->bind_param("sss", $username, $hashed_password, $subject);
 
         if ($insert_stmt->execute()) {
-            header("Location: /Minor-project/main/menu.php");
+            header("Location: /Minor-project/main/ae_main.html");
             exit;
         } else {
             echo "Error registering user!";

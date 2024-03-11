@@ -29,7 +29,6 @@
     <h1>Mark Attendance</h1>
 
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <!-- No need for subject filter -->
         <label for="periods">Number of Periods:</label>
         <input type="number" name="periods" id="periods" value="<?php echo isset($_POST['periods']) ? $_POST['periods'] : 1; ?>" min="1">
         <label for="attendance_date">Attendance Date:</label>
@@ -110,6 +109,8 @@ if ($result->num_rows > 0) {
 } else {
     echo "No students found for $subject";
 }
+
+
 
 // Insert attendance data into the database
 if (isset($_POST['submit_attendance'])) {

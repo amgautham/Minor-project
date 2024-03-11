@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                // header("Location: /Minor-project/main/menu.php");
                 exit;
             } else {
-                echo "Incorrect password!";
+                echo "<div class='error-message'>Wrong password. Please try again.</div>";
             }
         } else {
             echo "User not found!";
@@ -295,6 +295,7 @@ a:hover {
             <div class="button-container">
                 <button type="submit" name="login">Login</button>
             </div>
+
         </form>
         <p>Already registered? <a href="#" id="signupLink">SignUp</a></p>
     </div>

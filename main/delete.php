@@ -18,7 +18,8 @@ if (isset($_POST['date'])) {
     $delete_date = $_POST['date'];
     // Delete attendance records for the selected date
     $sql_delete = "DELETE FROM $table_name WHERE attendance_date = '$delete_date'";
-    if ($conn->query($sql_delete) === TRUE) {
+    $sql_delete2 = "DELETE FROM total_periods_tracker WHERE date = '$delete_date'";
+    if (($conn->query($sql_delete) &&$conn->query($sql_delete2)) === TRUE) {
         echo "Attendance records for date $delete_date deleted successfully.";
     } else {
         echo "Error deleting attendance records: " . $conn->error;

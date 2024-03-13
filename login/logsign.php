@@ -2,6 +2,13 @@
 include('db.php');
 session_start();
 
+$a1 = ""; // Initialize variables to avoid "Undefined variable" error
+$a2 = "";
+$a3 = "";
+$a4 = "";
+$a5 = "";
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['login'])) {
         // Sign In Logic
@@ -26,10 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                // header("Location: /Minor-project/main/menu.php");
                 exit;
             } else {
-                echo "<div class='error-message'>Wrong password. Please try again.</div>";
+                $a1 =  "Wrong password!";
             }
         } else {
-            echo "User not found!";
+            $a2 = "User not found!";
         }
 
         $stmt->close(); // Close the statement
@@ -50,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $subject_check_result = $subject_check_stmt->get_result();
 
         if ($subject_check_result->num_rows > 0) {
-            echo "Subject is already taken!";
+            $a3 = "Subject is already taken!";
             exit; // Stop execution if the subject is taken
         }
 
@@ -63,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username_check_result = $username_check_stmt->get_result();
 
         if ($username_check_result->num_rows > 0) {
-            echo "Username already exists!";
+            $a4 = "Username already exists!";
             exit; // Stop execution if the username is taken
         }
 
@@ -77,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: /Minor-project/main/ae_main.html");
             exit;
         } else {
-            echo "Error registering user!";
+            $a5 = "Error registering user!";
         }
 
         $insert_stmt->close(); // Close the insert statement
@@ -286,11 +293,17 @@ a:hover {
         <form action="logsign.php" method="post">
             <div class="form-group">
                 <label for="namelog">Name</label>
-                <input type="text" id="namelog" name="usernamelog" required="">
+                <input type="text" id="namelog" name="usernamelog" required=""> <?php
+                echo "<p>$a2</p>" ;
+                ?>
+                
             </div>
             <div class="form-group">
                 <label for="passwordlog">Password</label>
                 <input type="password" id="passwordlog" name="passwordlog" required="">
+                <?php
+                echo "<p>$a1</p>" ;
+                ?>
             </div>
             <div class="button-container">
                 <button type="submit" name="login">Login</button>
@@ -305,6 +318,9 @@ a:hover {
             <div class="form-group">
                 <label for="name">Create Username</label>
                 <input type="text" id="name" name="username" required="">
+                <?php
+                echo "<p>$a4</p>";
+                ?>
             </div>
             <div class="form-group">
                 <label for="password">Create Password</label>
@@ -340,11 +356,19 @@ a:hover {
 					<option value="Product Design">Product Design</option>
                     <!-- Add other options as needed -->
                 </select>
+                <?php
+                echo "<p>$a3</p>";
+                ?>
             </div>
             <div class="button-container">
                 <button type="submit" name="signup">SignUp</button>
+                
             </div>
         </form>
+        <?php
+                echo "<p>$a5</p>";
+                ?>
+        
         <p>Already registered? <a href="#" id="loginLink">Login</a></p>
     </div>
     <div class="second-left-section" style="display: none;">

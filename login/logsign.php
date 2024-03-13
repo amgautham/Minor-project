@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $_SESSION['username'] = $username;
                 $_SESSION['subject'] = $sub;
-                header("Location: /Minor-project/main/ae_main.html");
+                header("Location: /Minor-project/main/ae_main.php");
                // header("Location: /Minor-project/main/menu.php");
                 exit;
             } else {

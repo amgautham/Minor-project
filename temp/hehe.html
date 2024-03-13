@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Metrics Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .card {
+            background-color: #333;
+            color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .progress-bar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 8px solid #444;
+            position: relative;
+            margin: 0 auto;
+        }
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #0074D9;
+            clip-path: polygon(10% 0%, 100% 0%, 100% 100%);
+            
+        }
+        .percentage {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Successful Transactions</h2>
+        <div class="progress-bar">
+            <div class="progress-fill" style="transform: rotate(68deg);"></div>
+        </div>
+        <p class="percentage">68%</p>
+        <p>131,432 / 193,203</p>
+    </div>
+
+    <div class="card">
+        <h2>Returning Customer Rate</h2>
+        <div class="progress-bar">
+            <div class="progress-fill" style="transform: rotate(82deg);"></div>
+        </div>
+        <p class="percentage">82%</p>
+        <p>20,093 / 24,504</p>
+    </div>
+
+    <div class="card">
+        <h2>Sales Target Completed</h2>
+        <div class="progress-bar">
+            <div class="progress-fill" style="transform: rotate(34deg);"></div>
+        </div>
+        <p class="percentage">34%</p>
+        <p>8,472</p>
+    </div>
+</body>
+</html>

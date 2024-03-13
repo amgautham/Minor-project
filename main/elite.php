@@ -1,16 +1,3 @@
-<?php
-session_start();
-
-// Check if the user is logged in
-if (!isset($_SESSION['username'])) {
-    // Redirect to the login page
-    header("Location: /Minor-project/login/logsign.php");
-    exit();
-}
-
-// Continue with the secure page content
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,17 +5,7 @@ if (!isset($_SESSION['username'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Attendance Tracker</title>
 <style>
-  /* Define some colors */
-:root {
-  --bg-color: #f5f5f5; /* Light background color */
-  --text-color: #333; /* Dark text color */
-  --accent-color: #7F00FF; /* Violet accent color */
-  --button-bg-color: #7F00FF; /* Violet button background color */
-  --button-text-color: #fff; /* Button text color */
-  --button-hover-bg-color: #39FF14; /* Button background color on hover */
-}
-
-/* Add some global styles */
+/* Global styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -36,142 +13,107 @@ if (!isset($_SESSION['username'])) {
 }
 
 body {
-  background-color: var(--bg-color); /* Use light background color */
   font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: var(--text-color);
+  background-color: #f5f5f5;
   margin: 0;
   padding: 0;
 }
 
-/* Container for the entire page */
 .container {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Set the title style */
 h1 {
   text-align: center;
   margin-bottom: 20px;
-  font-size: 36px;
-  color: #333;
 }
 
-/* Set the form style */
-form {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Set the form label style */
-form label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-/* Set the form input style */
-form input[type="date"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-/* Set the form button style */
-form button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: var(--button-bg-color);
-  color: var(--button-text-color);
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-/* Button hover effect */
-form button:hover {
-  background-color: var(--button-hover-bg-color);
-}
-
-/* Set the table style */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
 }
 
-/* Set the table header style */
-th {
-  background-color: var(--accent-color);
-  color: #fff;
-  padding: 12px;
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
   text-align: left;
 }
 
-/* Set the table data style */
-td {
+th {
+  background-color: #f2f2f2;
+}
+
+/* Attendance circle styles */
+
+
+/* Attendance percentage styles */
+
+
+/* Date range filter styles */
+#date-range-form {
+  margin-bottom: 20px;
+}
+
+#date-range-form label {
+  margin-right: 10px;
+}
+
+#date-range-form input[type="date"] {
+  padding: 6px;
+  border-radius: 4px;
   border: 1px solid #ccc;
-  padding: 12px;
 }
 
-/* Letter-by-letter animation */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+#date-range-form button {
+  padding: 8px 12px;
+  background-color: #7F00FF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.animated-heading {
-  display: inline-block;
+#date-range-form button:hover {
+  background-color: #5F00D1;
 }
 
-.animated-heading span {
-  display: inline-block;
-  opacity: 0;
-  animation: fadeIn 0.5s forwards;
-}
+/* Progress ring styles */
+.battery-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    position: relative;
+    margin: 20px auto;
+    overflow: hidden;
+  }
 
-.animated-heading-attendance span:nth-child(1) { animation-delay: 0.1s; }
-.animated-heading-attendance span:nth-child(2) { animation-delay: 0.2s; }
-.animated-heading-attendance span:nth-child(3) { animation-delay: 0.3s; }
-.animated-heading-attendance span:nth-child(4) { animation-delay: 0.4s; }
-.animated-heading-attendance span:nth-child(5) { animation-delay: 0.5s; }
-.animated-heading-attendance span:nth-child(6) { animation-delay: 0.6s; }
-.animated-heading-attendance span:nth-child(7) { animation-delay: 0.7s; }
-.animated-heading-attendance span:nth-child(8) { animation-delay: 0.8s; }
-.animated-heading-attendance span:nth-child(9) { animation-delay: 0.9s; }
-.animated-heading-attendance span:nth-child(10) { animation-delay: 1s; }
-/* Add more spans as needed for longer words */
+  .battery-level {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0074D9;
+    height: 0;
+    transition: height 0.5s ease-in-out;
+  }
 
-.animated-heading-report span:nth-child(1) { animation-delay: 1.1s; }
-.animated-heading-report span:nth-child(2) { animation-delay: 1.2s; }
-.animated-heading-report span:nth-child(3) { animation-delay: 1.3s; }
-.animated-heading-report span:nth-child(4) { animation-delay: 1.4s; }
-.animated-heading-report span:nth-child(5) { animation-delay: 1.5s; }
-.animated-heading-report span:nth-child(6) { animation-delay: 1.6s; }
-.animated-heading-report span:nth-child(7) { animation-delay: 1.7s; }
-.animated-heading-report span:nth-child(8) { animation-delay: 1.8s; }
-.animated-heading-report span:nth-child(9) { animation-delay: 1.9s; }
-.animated-heading-report span:nth-child(10) { animation-delay: 2s; }
-/* Add more spans as needed for longer words */
+  .percentage-text {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+  }
 </style>
 </head>
 <body>
 <div class="container">
-    <h1 class="animated-heading">
-      <span class="animated-heading-attendance">A</span><span class="animated-heading-attendance">t</span><span class="animated-heading-attendance">t</span><span class="animated-heading-attendance">e</span><span class="animated-heading-attendance">n</span><span class="animated-heading-attendance">d</span><span class="animated-heading-attendance">a</span><span class="animated-heading-attendance">n</span><span class="animated-heading-attendance">c</span><span class="animated-heading-attendance">e</span>
-      <span></span>
-      <span class="animated-heading-report">R</span><span class="animated-heading-report">e</span><span class="animated-heading-report">p</span><span class="animated-heading-report">o</span><span class="animated-heading-report">r</span><span class="animated-heading-report">t</span>
-    </h1>
+    <h1>Attendance Tracker</h1>
 
     <!-- Date range filter -->
     <form id="date-range-form">
@@ -182,172 +124,143 @@ td {
         <button type="submit">Apply Filter</button>
     </form>
 
-    <table id="previewTable">
+    <table>
         <thead>
             <tr>
                 <th>Roll Number</th>
                 <th>Name</th>
                 <th>Date</th>
-                <th>Attendance Percentage</th>
+                <th>Attendance</th>
             </tr>
         </thead>
         <tbody>
         <?php
-// Include your database connection file
-include 'db.php';
-$csub = $_SESSION['subject'];
+        session_start();
 
-// Prepare the SQL statement
-$ctname_query = "SELECT table_name FROM subjects WHERE subject = ?";
-$stmt = $conn->prepare($ctname_query);
-
-// Bind the parameter and execute the statement
-$stmt->bind_param("s", $csub);
-$stmt->execute();
-
-// Get the result
-$resultt = $stmt->get_result();
-
-// Check if there are any rows returned
-if ($resultt->num_rows > 0) {
-    // Fetch the row
-    $row = $resultt->fetch_assoc();
-    // Get the table_name
-    $ctname = $row['table_name'];
-    
-    
-    //echo $ctname; // or do whatever you want with $ctname
-} else {
-   
-    echo "No table found for the specified subject.";
-}
-
-// Close the statement
-$stmt->close();
-
-$sql = "SELECT * FROM $ctname";
-$result = mysqli_query($conn, $sql);
-
-
-
-
-// Fetch total periods from the total_periods_tracker table
-$totalSql = "SELECT total_periods FROM total_periods_tracker WHERE subject = ?";
-$stmt = $conn->prepare($totalSql);
-
-// Bind the parameter and execute the statement
-$stmt->bind_param("s", $csub);
-$stmt->execute();
-
-// Get the result
-$resultttt = $stmt->get_result();
-
-// Check if there are any rows returned
-if ($resultttt->num_rows > 0) {
-    // Fetch the row
-    $row = $resultttt->fetch_assoc();
-    // Get the total_periods
-    $total_periods = $row['total_periods'];
-    
-    // Now $total_periods contains the total_periods for the specified subject
-    //echo $total_periods; // or do whatever you want with $total_periods
-} else {
-    // No rows found, handle the case accordingly
-    echo "No record found for the specified subject.";
-}
-
-// Close the statement
-$stmt->close();
-
-
-
-
-// Get start and end dates from the form
-$fdate = isset($_POST["start-date"]) ? $_POST["start-date"] : '';
-$edate = isset($_POST["end-date"]) ? $_POST["end-date"] : '';
-
-// Get the subject from session
-$csub = $_SESSION['subject'];
-
-// Prepare the SQL statement to fetch the table name for the subject
-$ctname_query = "SELECT table_name FROM subjects WHERE subject = ?";
-$stmt = $conn->prepare($ctname_query);
-$stmt->bind_param("s", $csub);
-$stmt->execute();
-$resultt = $stmt->get_result();
-
-// Check if there are any rows returned
-if ($resultt->num_rows > 0) {
-    // Fetch the row
-    $row = $resultt->fetch_assoc();
-    // Get the table_name
-    $ctname = $row['table_name'];
-} else {
-    echo "No table found for the specified subject.";
-    exit; // Exit script if no table found
-}
-
-// Close the statement
-$stmt->close();
-
-// Prepare the SQL statement to fetch attendance records from the specified table
-$sql = "SELECT * FROM $ctname";
-
-// Modify SQL query based on provided dates
-if (!empty($fdate) && !empty($edate)) {
-    // Both start and end dates are provided
-    $sql .= " WHERE attendance_date BETWEEN ? AND ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $fdate, $edate);
-} elseif (!empty($fdate)) {
-    // Only start date is provided
-    $sql .= " WHERE attendance_date >= ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $fdate);
-} elseif (!empty($edate)) {
-    // Only end date is provided
-    $sql .= " WHERE attendance_date <= ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $edate);
-} else {
-    // No dates provided, fetch all records
-    $stmt = $conn->prepare($sql);
-}
-
-// Execute the statement
-$stmt->execute();
-$result = $stmt->get_result();
-
-// Check if there are any rows returned
-if ($result->num_rows > 0) {
-    // Process and display attendance records
-    while ($row = $result->fetch_assoc()) {
-        // Process and display each row of attendance data
-        $rollNumber = $row["rollno"];
-        $name = $row["name"];
-        $datee = $row["attendance_date"];
-        $periodsAttended = $row["periods_attended"];
-
-        // Calculate attendance percentage if total periods available
-        if (!empty($total_periods)) {
-            $attendancePercentage = ($periodsAttended / $total_periods) * 100;
-        } else {
-            $attendancePercentage = "N/A";
+        // Check if the user is logged in
+        if (!isset($_SESSION['username'])) {
+            // Redirect to the login page
+            header("Location: /Minor-project/login/logsign.php");
+            exit();
         }
 
-        // Display the result in a table row
-        echo "<tr><td>$rollNumber</td><td>$name</td><td>$datee</td><td>$attendancePercentage%</td></tr>";
-    }
-} else {
-    // No records found
-    echo "<tr><td colspan='4'>No records found</td></tr>";
-}
+        // Include your database connection file
+        include 'db.php';
 
-// Close the statement
-$stmt->close();
-// Close database connection
-mysqli_close($conn);
-?>
+        // Get the subject from session
+        $csub = $_SESSION['subject'];
+
+        // Fetch total periods from the total_periods_tracker table
+        $totalSql = "SELECT total_periods FROM total_periods_tracker WHERE subject = ?";
+        $stmt = $conn->prepare($totalSql);
+        $stmt->bind_param("s", $csub);
+        $stmt->execute();
+        $resultttt = $stmt->get_result();
+
+        // Check if there are any rows returned
+        if ($resultttt->num_rows > 0) {
+            // Fetch the row
+            $row = $resultttt->fetch_assoc();
+            // Get the total_periods
+            $total_periods = $row['total_periods'];
+        } else {
+            // No rows found, handle the case accordingly
+            echo "No record found for the specified subject.";
+            exit;
+        }
+
+        // Close the statement
+        $stmt->close();
+
+        // Get start and end dates from the form
+        $fdate = isset($_POST["start-date"]) ? $_POST["start-date"] : '';
+        $edate = isset($_POST["end-date"]) ? $_POST["end-date"] : '';
+
+        // Prepare the SQL statement to fetch attendance records
+        $ctname_query = "SELECT table_name FROM subjects WHERE subject = ?";
+        $stmt = $conn->prepare($ctname_query);
+        $stmt->bind_param("s", $csub);
+        $stmt->execute();
+        $resultt = $stmt->get_result();
+
+        // Check if there are any rows returned
+        if ($resultt->num_rows > 0) {
+            // Fetch the row
+            $row = $resultt->fetch_assoc();
+            // Get the table_name
+            $ctname = $row['table_name'];
+        } else {
+            echo "No table found for the specified subject.";
+            exit; // Exit script if no table found
+        }
+
+        // Close the statement
+        $stmt->close();
+
+        // Prepare the SQL statement to fetch attendance records from the specified table
+        $sql = "SELECT * FROM $ctname";
+
+        // Modify SQL query based on provided dates
+        if (!empty($fdate) && !empty($edate)) {
+            // Both start and end dates are provided
+            $sql .= " WHERE a.attendance_date BETWEEN ? AND ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $fdate, $edate);
+        } elseif (!empty($fdate)) {
+            // Only start date is provided
+            $sql .= " WHERE a.attendance_date >= ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $fdate);
+        } elseif (!empty($edate)) {
+            // Only end date is provided
+            $sql .= " WHERE a.attendance_date <= ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $edate);
+        } else {
+            // No dates provided, fetch all records
+            $stmt = $conn->prepare($sql);
+        }
+
+        // Execute the statement
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Check if there are any rows returned
+        if ($result->num_rows > 0) {
+            // Process and display attendance records
+            while ($row = $result->fetch_assoc()) {
+                // Process and display each row of attendance data
+                $rollNumber = $row["rollno"];
+                $name = $row["name"];
+                $datee = $row["attendance_date"];
+                $periodsAttended = $row["periods_attended"];
+
+                // Calculate attendance percentage if total periods available
+                if (!empty($total_periods)) {
+                    $attendancePercentage = round(($periodsAttended / $total_periods) * 100);
+                } else {
+                    $attendancePercentage = "N/A";
+                }
+        ?>
+                <tr>
+                <td><?php echo $rollNumber; ?></td>
+            <td><?php echo $name; ?></td>
+            <td><?php echo $datee; ?></td>
+            <td>
+            <div class="battery-container">
+    <div class="battery-level" style="height: <?php echo $attendancePercentage; ?>%;"></div>
+  </div>
+  <p class="percentage-text"><?php echo $attendancePercentage; ?>%</p>
+              </td>
+
+              </tr>
+        <?php
+            }
+        } else {
+            // No records found
+            echo "<tr><td colspan='4'>No records found</td></tr>";
+        }
+        ?>
         </tbody>
     </table>
 </div>

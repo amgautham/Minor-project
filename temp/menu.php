@@ -1,3 +1,12 @@
+<?php
+session_start(); // Start the session
+
+if (!isset($_SESSION['username'])) {
+    // Redirect to the login page
+    header("Location: /Minor-project/login/logsign.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,12 +61,17 @@
      </head>
      <body>
         <div class="navbar">
-            <div class="buttoncontainer" onclick="myFunction(this)">
-                <div class="bar1"></div>
-                <div class="bar2"></div>
-                <div class="bar3"></div>
-            </div>
-            <h2>Open Elective Attendance Management System</h2>
+           
+            <h2>Welcome Admin</h2>
+
+        
+                    
+                    
+                    <a href="../login/logout.php">Logout</a>
+                    
+                
+                
+                
         </div>
         
      <div style="padding-top:50px;" class="container">

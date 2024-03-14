@@ -114,6 +114,7 @@ th {
 <body>
 <div class="container">
     <h1>Attendance Tracker</h1>
+  
 
     <!-- Date range filter -->
     <form id="date-range-form">

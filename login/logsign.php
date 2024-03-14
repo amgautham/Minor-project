@@ -15,6 +15,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_POST['usernamelog'];
         $password = $_POST['passwordlog'];
 
+
+        // Hash the password provided by the user
+        $hasheed_password = hash('sha256', $password);
+
+        // Connect to your database (replace dbname, username, password with your actual database credentials)
+        $pdo = new PDO("mysql:host=localhost;dbname=log", "root", "");
+
+
+        // Prepare and execute a SQL query to retrieve the hashed password for the provided username
+        $astmt = $pdo->prepare("SELECT adminpassword FROM admin WHERE adminname = ?");
+        $astmt->execute([$username]);
+
+        // Fetch the hashed password from the result
+        $stored_password_hash = $astmt->fetchColumn();
+
+        // Verify if the hashed password provided by the user matches the hashed password retrieved from the database
+        if ($stored_password_hash === $hasheed_password) {
+            
+            $_SESSION['username'] = $username;
+            header("Location: /Minor-project/temp/menu.php");
+            $pdo = null;
+            exit;
+        }
+
+        
+        $pdo = null;
+
+
+
+
+
+
+
+
         $sql = "SELECT * FROM users WHERE username = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $username);
@@ -35,7 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $a1 =  "Wrong password!";
             }
-        } else {
+        }
+        
+        else {
             $a2 = "User not found!";
         }
 

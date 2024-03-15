@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Prepare and execute a SQL query to retrieve the hashed password and user type for the provided username
-        $stmt = $conn->prepare("SELECT password, user_type FROM users WHERE username = ?");
+        $stmt = $conn->prepare("SELECT password, user_type,subject FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -24,14 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $stored_password_hash = $row['password'];
-
+                $sub = $row['subject'];
                 // Verify if the hashed password provided by the user matches the hashed password retrieved from the database
                 if (password_verify($password, $stored_password_hash)) {
                     $_SESSION['username'] = $username;
-
+                    $_SESSION['subject'] = $sub;
                     // Redirect based on user type
                     if ($row['user_type'] === 'admin') {
-                        header("Location: /Minor-project/temp/menu.php");
+                        header("Location: /Minor-project/main/ae_main.php");
                     } else {
                         header("Location: /Minor-project/main/ae_main.php");
                     }

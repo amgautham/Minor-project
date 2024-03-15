@@ -1,132 +1,90 @@
 <?php
 include('db.php');
 session_start();
-
-$a1 = ""; // Initialize variables to avoid "Undefined variable" error
-$a2 = "";
-$a3 = "";
-$a4 = "";
-$a5 = "";
-
+$a1 = $a2 = $a3 = $a4 = $a5 = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['login'])) {
         // Sign In Logic
         $username = $_POST['usernamelog'];
         $password = $_POST['passwordlog'];
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-
-        // Hash the password provided by the user
-        $hasheed_password = hash('sha256', $password);
-
-        // Connect to your database (replace dbname, username, password with your actual database credentials)
-        $pdo = new PDO("mysql:host=localhost;dbname=log", "root", "");
-
-
-        // Prepare and execute a SQL query to retrieve the hashed password for the provided username
-        $astmt = $pdo->prepare("SELECT adminpassword FROM admin WHERE adminname = ?");
-        $astmt->execute([$username]);
-
-        // Fetch the hashed password from the result
-        $stored_password_hash = $astmt->fetchColumn();
-
-        // Verify if the hashed password provided by the user matches the hashed password retrieved from the database
-        if ($stored_password_hash === $hasheed_password) {
-            
-            $_SESSION['username'] = $username;
-            header("Location: /Minor-project/temp/menu.php");
-            $pdo = null;
-            exit;
-        }
-
-        
-        $pdo = null;
-
-
-
-
-
-
-
-
-        $sql = "SELECT * FROM users WHERE username = ?";
-        $stmt = $conn->prepare($sql);
+        // Prepare and execute a SQL query to retrieve the hashed password and user type for the provided username
+        $stmt = $conn->prepare("SELECT password, user_type FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
-
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            if (password_verify($password, $row['password'])) {
-                $sub = $row['subject'];
+        if (!$result) {
+            // Check for query execution failure
+            echo "Error fetching user data: " . $conn->error;
+        } else {
+            // Check if a row was found
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $stored_password_hash = $row['password'];
 
-                $_SESSION['username'] = $username;
-                $_SESSION['subject'] = $sub;
-                header("Location: /Minor-project/main/ae_main.php");
-               // header("Location: /Minor-project/main/menu.php");
-                exit;
+                // Verify if the hashed password provided by the user matches the hashed password retrieved from the database
+                if (password_verify($password, $stored_password_hash)) {
+                    $_SESSION['username'] = $username;
+
+                    // Redirect based on user type
+                    if ($row['user_type'] === 'admin') {
+                        header("Location: /Minor-project/temp/menu.php");
+                    } else {
+                        header("Location: /Minor-project/main/ae_main.php");
+                    }
+                    exit;
+                } else {
+                    $a1 =  "Wrong username or password!";
+                }
             } else {
-                $a1 =  "Wrong password!";
+                $a1 =  "User not found!";
             }
-        }
-        
-        else {
-            $a2 = "User not found!";
         }
 
         $stmt->close(); // Close the statement
-        $conn->close(); // Close the database connection
-
     } elseif (isset($_POST['signup'])) {
         // Sign Up Logic
         $username = $_POST['username'];
         $password = $_POST['password'];
         $subject = $_POST['subject'];
 
-        // Check if the subject is already taken
-        $subject_check_sql = "SELECT * FROM users WHERE subject = ?";
-        $subject_check_stmt = $conn->prepare($subject_check_sql);
-        $subject_check_stmt->bind_param("s", $subject);
-        $subject_check_stmt->execute();
-
-        $subject_check_result = $subject_check_stmt->get_result();
-
-        if ($subject_check_result->num_rows > 0) {
-            $a3 = "Subject is already taken!";
-            exit; // Stop execution if the subject is taken
-        }
-
         // Check if the username is already taken
-        $username_check_sql = "SELECT * FROM users WHERE username = ?";
-        $username_check_stmt = $conn->prepare($username_check_sql);
+        $username_check_stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
         $username_check_stmt->bind_param("s", $username);
         $username_check_stmt->execute();
-
         $username_check_result = $username_check_stmt->get_result();
 
-        if ($username_check_result->num_rows > 0) {
-            $a4 = "Username already exists!";
-            exit; // Stop execution if the username is taken
-        }
-
-        // Use prepared statements to insert user data securely
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $insert_sql = "INSERT INTO users (username, password, subject) VALUES (?, ?, ?)";
-        $insert_stmt = $conn->prepare($insert_sql);
-        $insert_stmt->bind_param("sss", $username, $hashed_password, $subject);
-
-        if ($insert_stmt->execute()) {
-            header("Location: /Minor-project/main/ae_main.php");
-            exit;
+        if (!$username_check_result) {
+            // Check for query execution failure
+            echo "Error checking username availability: " . $conn->error;
         } else {
-            $a5 = "Error registering user!";
-        }
+            if ($username_check_result->num_rows > 0) {
+                $a4 = "Username already exists!";
+                exit; // Stop execution if the username is taken
+            }
 
-        $insert_stmt->close(); // Close the insert statement
-        $username_check_stmt->close(); // Close the username check statement
-        $subject_check_stmt->close(); // Close the subject check statement
-        $conn->close(); // Close the database connection
+            // Use prepared statements to insert user data securely
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $insert_stmt = $conn->prepare("INSERT INTO users (username, password, subject) VALUES (?, ?, ?)");
+            $insert_stmt->bind_param("sss", $username, $hashed_password, $subject);
+
+            if (!$insert_stmt) {
+                // Check for query preparation failure
+                echo "Error preparing user insertion: " . $conn->error;
+            } else {
+                if ($insert_stmt->execute()) {
+                    header("Location: /Minor-project/main/ae_main.html");
+                    exit;
+                } else {
+                    $a5 = "Error registering user!";
+                }
+                $insert_stmt->close(); // Close the insert statement
+            }
+            $username_check_stmt->close(); // Close the username check statement
+        }
     }
 }
 ?>

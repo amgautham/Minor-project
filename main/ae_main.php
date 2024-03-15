@@ -273,7 +273,7 @@ if (!isset($_SESSION['username'])) {
                 <div class="layer">
                     <h2>View Attendance Report</h2>
                     <p>Obtain attendance data presented as a percentage for quick insights into overall attendance rates.</p>
-                    <a href="elite.php"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <a href="report.php"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 </div>
             </div>
         </div>

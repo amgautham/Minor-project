@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $insert_stmt->bind_param("sss", $username, $hashed_password, $subject);
 
         if ($insert_stmt->execute()) {
-            header("Location: /Minor-project/main/ae_main.html");
+            header("Location: /Minor-project/main/ae_main.php");
             exit;
         } else {
             $a5 = "Error registering user!";

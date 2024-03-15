@@ -3,37 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Attendance Report</title>
+    <style>
+        /* Basic styling for the form */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        form input[type="date"] {
+            margin: 5px;
+        }
+
+        form input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Styling for the table */
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <form method="post">
-        <input type="date" name="start_date">
-        <input type="date" name="end_date">
-        <input type="submit" value="Submit">
-    </form>
-</body>
-</html>
+
+<form method="post">
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date">
+
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date">
+
+    <input type="submit" value="Submit">
+</form>
 
 <?php
+// Include the database connection file
 include('db.php');
+
+// Start session
 session_start();
 
+// Get subject from session
 $subject = $_SESSION['subject'];
+
+// Retrieve table name for the subject
 $sql_table = "SELECT table_name FROM subjects WHERE subject = '$subject'";
 $result_table = $conn->query($sql_table);
 
+// Check if table name is found
 if ($result_table->num_rows > 0) {
     $row_table = $result_table->fetch_assoc();
     $table_name = $row_table['table_name'];
-    echo "Table name for $subject: $table_name <br>";
+    echo "<h2>Table name for $subject: $table_name</h2>";
 
     // Proceed with the rest of the code using $table_name
     if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
         $start_date = $_POST['start_date'];
         $end_date = $_POST['end_date'];
-        echo "Start Date: $start_date, End Date: $end_date <br>";
 
-        // Make sure to properly format the dates for SQL query
+        // Format dates for SQL query
         $formatted_start_date = date('Y-m-d', strtotime($start_date));
         $formatted_end_date = date('Y-m-d', strtotime($end_date));
 
@@ -85,3 +134,6 @@ if ($result_table->num_rows > 0) {
     echo "Table name not found for $subject";
 }
 ?>
+
+</body>
+</html>

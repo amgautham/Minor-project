@@ -1,0 +1,174 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+}
+
+.left-section,
+.second-right-section,
+.right-section,
+.second-left-section {
+    padding: 20px;
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-section {
+    background-color: #f7f7f7;
+}
+
+.second-right-section {
+    background-color: #f7f7f7;
+}
+
+.right-section {
+    background: linear-gradient(to right, #4B0082, #8A2BE2);
+    color: white;
+}
+
+.second-left-section {
+    background: linear-gradient(to right, #00FFFF, #008B8B);
+    color: white;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 15px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-sizing: border-box; /* Ensure padding and border are included in the total width/height */
+}
+
+.form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #fff;
+    color: #555;
+}
+
+.form-group select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.form-group select:hover,
+.form-group select:focus {
+    border-color: #8A2BE2;
+}
+
+button {
+    padding: 12px 24px;
+    background-color: #4B0082;
+	justify-content: center;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #8A2BE2;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adjust the margin as needed */
+}
+
+.button-container button {
+    margin: 0 10px; /* Adjust the margin between buttons as needed */
+}
+
+a {
+    color: #4B0082;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #8A2BE2;
+}
+
+/* Animation keyframes and styles */
+@keyframes typing {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.typing-animation1 {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: 0; /* Set initial opacity to 0 */
+
+    /* Apply typing animation to both lines */
+    animation: typing 5s steps(80, end) forwards, fadeIn 1s ease-in-out forwards;
+
+    /* Delay the second line animation */
+    animation-delay: 0.3s; /* Half of the typing duration of the first line (5s/2) */
+}
+.typing-animation2 {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: 0; /* Set initial opacity to 0 */
+
+    /* Apply typing animation to both lines */
+    animation: typing 5s steps(80, end) forwards, fadeIn 1s ease-in-out forwards;
+
+    /* Delay the second line animation */
+    animation-delay: 2.0s; /* Half of the typing duration of the first line (5s/2) */
+}

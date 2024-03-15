@@ -43,6 +43,34 @@
         th {
             background-color: #f2f2f2;
         }
+
+        /* Circular progress bar */
+        .progress-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ddd;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-circle-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #007bff;
+            clip-path: polygon(50% 50%, 50% 0%, 0% 0%);
+            transform-origin: bottom center;
+            transform: rotate(0deg);
+        }
+
+        .percentage-text {
+            text-align: center;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -117,11 +145,19 @@ if ($result_table->num_rows > 0) {
                 // Calculate attendance percentage
                 $attendance_percentage = ($total_attended / $total_periods_sum) * 100;
 
+                // Calculate rotation angle for the fill
+                $rotation_angle = $attendance_percentage * 3.6;
+
                 echo "<tr>
                         <td>$rollno</td>
                         <td>$name</td>
                         <td>$total_attended</td>
-                        <td>$attendance_percentage%</td>
+                        <td>
+                            <div class='progress-circle'>
+                                <div class='progress-circle-fill' style='transform: rotate($rotation_angle deg)'></div>
+                            </div>
+                            <div class='percentage-text'>$attendance_percentage%</div>
+                        </td>
                       </tr>";
             }
 

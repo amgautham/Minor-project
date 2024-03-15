@@ -261,19 +261,19 @@ if (!isset($_SESSION['username'])) {
         <div class="work-list">
             <div class="work">
                 <img src="mark.jpeg">
-                <div class="layer">
+                <div class="layer" onclick="navigateTo('mark_attendance.php')">
                     <h2>Mark Attendance</h2>
                     <p>Record the presence or absence of individuals at a specified open elective subject with a simple action.</p>
-                    <a href="mark_attendance.php"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    
                 </div>
             </div>
 
             <div class="work">
                 <img src="report.jpeg">
-                <div class="layer">
+                <div class="layer" onclick="navigateTo('report.php')">
                     <h2>View Attendance Report</h2>
                     <p>Obtain attendance data presented as a percentage for quick insights into overall attendance rates.</p>
-                    <a href="report.php"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    
                 </div>
             </div>
         </div>
@@ -285,6 +285,10 @@ if (!isset($_SESSION['username'])) {
 
 
 <script>
+    function navigateTo(url)
+        {
+            window.location.href = url;
+        }
     // JavaScript code for toggling dropdown visibility
     document.addEventListener("DOMContentLoaded", function() {
         var dropdowns = document.getElementsByClassName("dropdown");

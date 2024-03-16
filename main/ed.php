@@ -15,14 +15,14 @@ if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         $date = $row['date'];
         echo "<tr>";
-        echo "<td>$date</td>";
+        echo "<td >$date</td>";
         // Add buttons for editing and deleting
         echo "<td>";
-        echo "<form action='edit.php' method='post'>";
+        echo "<form action='edit.php' method='post' style='display: inline-block;'>";
         echo "<input type='hidden' name='date' value='$date'>";
         echo "<input type='submit' value='Edit'>";
         echo "</form>";
-        echo "<form action='delete.php' method='post'>";
+        echo "<form action='delete.php' method='post' style='display: inline-block;'>";
         echo "<input type='hidden' name='date' value='$date'>";
         echo "<input type='submit' value='Delete'>";
         echo "</form>";

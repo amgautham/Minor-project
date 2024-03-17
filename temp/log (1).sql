@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2024 at 07:37 AM
+-- Generation Time: Mar 17, 2024 at 03:00 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -209,34 +209,33 @@ CREATE TABLE `fundamentals_of_web_technology_attendance` (
 --
 
 INSERT INTO `fundamentals_of_web_technology_attendance` (`id`, `rollno`, `name`, `periods_attended`, `attendance_date`) VALUES
-(1, 2, 'Jane Smith', 1, '2024-02-27'),
-(2, 3, 'Michael Johnson', 1, '2024-02-27'),
-(3, 4, 'Emily Wilson', 1, '2024-02-27'),
-(4, 5, 'Christopher Brown', 1, '2024-02-27'),
-(5, 2, 'Jane Smith', 3, '2024-02-27'),
-(6, 3, 'Michael Johnson', 4, '2024-02-27'),
-(7, 4, 'Emily Wilson', 3, '2024-02-27'),
-(8, 5, 'Christopher Brown', 4, '2024-02-27'),
-(9, 2, 'Jane Smith', 3, '2024-02-27'),
-(10, 3, 'Michael Johnson', 4, '2024-02-27'),
-(11, 4, 'Emily Wilson', 3, '2024-02-27'),
-(12, 5, 'Christopher Brown', 4, '2024-02-27'),
-(13, 2, 'Jane Smith', 4, '2024-02-27'),
-(14, 3, 'Michael Johnson', 4, '2024-02-27'),
-(15, 4, 'Emily Wilson', 4, '2024-02-27'),
-(16, 5, 'Christopher Brown', 4, '2024-02-27'),
-(17, 2, 'Jane Smith', 4, '2024-02-27'),
-(18, 3, 'Michael Johnson', 4, '2024-02-27'),
-(19, 4, 'Emily Wilson', 4, '2024-02-27'),
-(20, 5, 'Christopher Brown', 4, '2024-02-27'),
-(21, 2, 'Jane Smith', 3, '2024-02-27'),
-(22, 3, 'Michael Johnson', 3, '2024-02-27'),
-(23, 4, 'Emily Wilson', 3, '2024-02-27'),
-(24, 5, 'Christopher Brown', 3, '2024-02-27'),
-(25, 2, 'Jane Smith', 3, '2024-02-27'),
-(26, 3, 'Michael Johnson', 3, '2024-02-27'),
-(27, 4, 'Emily Wilson', 3, '2024-02-27'),
-(28, 5, 'Christopher Brown', 3, '2024-02-27');
+(29, 2, 'Jane Smith', 1, '2024-03-04'),
+(30, 3, 'Michael Johnson', 1, '2024-03-04'),
+(31, 4, 'Emily Wilson', 1, '2024-03-04'),
+(32, 5, 'Christopher Brown', 1, '2024-03-04'),
+(33, 2, 'Jane Smith', 1, '2024-03-04'),
+(34, 3, 'Michael Johnson', 1, '2024-03-04'),
+(35, 4, 'Emily Wilson', 1, '2024-03-04'),
+(36, 5, 'Christopher Brown', 1, '2024-03-04'),
+(37, 2, 'Jane Smith', 3, '2024-03-20'),
+(38, 3, 'Michael Johnson', 3, '2024-03-20'),
+(39, 4, 'Emily Wilson', 3, '2024-03-20'),
+(40, 5, 'Christopher Brown', 3, '2024-03-20'),
+(41, 2, 'Jane Smith', 1, '2024-03-15'),
+(42, 3, 'Michael Johnson', 1, '2024-03-15'),
+(43, 4, 'Emily Wilson', 1, '2024-03-15'),
+(44, 5, 'Christopher Brown', 1, '2024-03-15'),
+(45, 2, 'Jane Smith', 1, '2024-03-15'),
+(46, 4, 'Emily Wilson', 1, '2024-03-15'),
+(47, 5, 'Christopher Brown', 1, '2024-03-15'),
+(48, 2, 'Jane Smith', 1, '2024-03-15'),
+(49, 3, 'Michael Johnson', 1, '2024-03-15'),
+(50, 4, 'Emily Wilson', 1, '2024-03-15'),
+(51, 5, 'Christopher Brown', 1, '2024-03-15'),
+(52, 2, 'Jane Smith', 1, '2024-03-15'),
+(53, 3, 'Michael Johnson', 1, '2024-03-15'),
+(54, 4, 'Emily Wilson', 1, '2024-03-15'),
+(55, 5, 'Christopher Brown', 1, '2024-03-15');
 
 -- --------------------------------------------------------
 
@@ -389,21 +388,64 @@ CREATE TABLE `students` (
   `rollno` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `branch` varchar(50) NOT NULL,
-  `open_elective` varchar(100) NOT NULL,
-  `periods_attended` int(11) NOT NULL DEFAULT 0,
-  `total_periods` int(11) NOT NULL DEFAULT 0
+  `open_elective` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `rollno`, `name`, `branch`, `open_elective`, `periods_attended`, `total_periods`) VALUES
-(1, '001', 'John Doe', 'Computer Engineering(CT)', 'Renewable Energy and Environment', 0, 0),
-(2, '002', 'Jane Smith', 'Civil Engineering(CE)', 'Fundamentals of Web Technology', 0, 0),
-(3, '003', 'Michael Johnson', 'Mechanical Engineering(ME)', 'Fundamentals of Web Technology', 0, 0),
-(4, '004', 'Emily Wilson', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology', 0, 0),
-(5, '005', 'Christopher Brown', 'Electronics Engineering(EE)', 'Fundamentals of Web Technology', 0, 0);
+INSERT INTO `students` (`id`, `rollno`, `name`, `branch`, `open_elective`) VALUES
+(1, '001', 'John Doe', 'Computer Engineering(CT)', 'Renewable Energy and Environment'),
+(2, '002', 'Jane Smith', 'Civil Engineering(CE)', 'Fundamentals of Web Technology'),
+(3, '003', 'Michael Johnson', 'Mechanical Engineering(ME)', 'Fundamentals of Web Technology'),
+(4, '004', 'Emily Wilson', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology'),
+(5, '005', 'Christopher Brown', 'Electronics Engineering(EE)', 'Fundamentals of Web Technology'),
+(6, '006', 'Sarah Lee', 'Computer Engineering(CT)', 'Renewable Energy and Environment'),
+(7, '007', 'Matthew Taylor', 'Civil Engineering(CE)', 'Fundamentals of Web Technology'),
+(8, '008', 'Olivia Martinez', 'Mechanical Engineering(ME)', 'Renewable Energy and Environment'),
+(9, '009', 'Daniel Anderson', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology'),
+(10, '010', 'Ava Garcia', 'Electronics Engineering(EE)', 'Renewable Energy and Environment'),
+(11, '011', 'Liam Brown', 'Computer Engineering(CT)', 'Renewable Energy and Environment'),
+(12, '012', 'Emma Rodriguez', 'Civil Engineering(CE)', 'Fundamentals of Web Technology'),
+(13, '013', 'Noah Wilson', 'Mechanical Engineering(ME)', 'Renewable Energy and Environment'),
+(14, '014', 'Olivia Garcia', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology'),
+(15, '015', 'Mason Martinez', 'Electronics Engineering(EE)', 'Renewable Energy and Environment'),
+(16, '016', 'Sophia Hernandez', 'Computer Engineering(CT)', 'Renewable Energy and Environment'),
+(17, '017', 'Logan Wilson', 'Civil Engineering(CE)', 'Fundamentals of Web Technology'),
+(18, '018', 'Amelia Lee', 'Mechanical Engineering(ME)', 'Renewable Energy and Environment'),
+(19, '019', 'Ethan Moore', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology'),
+(20, '020', 'Isabella Anderson', 'Electronics Engineering(EE)', 'Renewable Energy and Environment'),
+(21, '021', 'Lucas Taylor', 'Computer Engineering(CT)', 'Renewable Energy and Environment'),
+(22, '022', 'Mia Thomas', 'Civil Engineering(CE)', 'Fundamentals of Web Technology'),
+(23, '023', 'Liam Jackson', 'Mechanical Engineering(ME)', 'Renewable Energy and Environment'),
+(24, '024', 'Harper White', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology'),
+(25, '025', 'Alexander Martinez', 'Electronics Engineering(EE)', 'Renewable Energy and Environment'),
+(26, '026', 'Evelyn Harris', 'Computer Engineering(CT)', 'Renewable Energy and Environment'),
+(27, '027', 'Benjamin Young', 'Civil Engineering(CE)', 'Fundamentals of Web Technology'),
+(28, '028', 'Avery King', 'Mechanical Engineering(ME)', 'Renewable Energy and Environment'),
+(29, '029', 'William Lewis', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology'),
+(30, '030', 'Sofia Davis', 'Electronics Engineering(EE)', 'Renewable Energy and Environment'),
+(31, '031', 'Henry Wright', 'Computer Engineering(CT)', 'Renewable Energy and Environment'),
+(32, '032', 'Scarlett Brown', 'Civil Engineering(CE)', 'Fundamentals of Web Technology'),
+(33, '033', 'Sebastian Moore', 'Mechanical Engineering(ME)', 'Renewable Energy and Environment'),
+(34, '034', 'Aria Perez', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology'),
+(35, '035', 'Gabriel Gonzalez', 'Electronics Engineering(EE)', 'Renewable Energy and Environment'),
+(36, '036', 'Luna Rivera', 'Computer Engineering(CT)', 'Renewable Energy and Environment'),
+(37, '037', 'Leo Walker', 'Civil Engineering(CE)', 'Fundamentals of Web Technology'),
+(38, '038', 'Stella Hill', 'Mechanical Engineering(ME)', 'Renewable Energy and Environment'),
+(39, '039', 'Jackson Adams', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology'),
+(40, '040', 'Victoria Baker', 'Electronics Engineering(EE)', 'Renewable Energy and Environment'),
+(41, '041', 'Nathan Mitchell', 'Computer Engineering(CT)', 'Renewable Energy and Environment'),
+(42, '042', 'Zoe Nelson', 'Civil Engineering(CE)', 'Fundamentals of Web Technology'),
+(43, '043', 'David Perez', 'Mechanical Engineering(ME)', 'Renewable Energy and Environment'),
+(44, '044', 'Madison Cook', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology'),
+(45, '045', 'Liam Sanchez', 'Electronics Engineering(EE)', 'Renewable Energy and Environment'),
+(46, '046', 'Hannah Turner', 'Computer Engineering(CT)', 'Renewable Energy and Environment'),
+(47, '047', 'Ethan Stewart', 'Civil Engineering(CE)', 'Fundamentals of Web Technology'),
+(48, '048', 'Brooklyn Morris', 'Mechanical Engineering(ME)', 'Renewable Energy and Environment'),
+(49, '049', 'Ella Cooper', 'Electrical & Electronics Engineering(EEE)', 'Fundamentals of Web Technology'),
+(50, '050', 'Andrew Ward', 'Electronics Engineering(EE)', 'Renewable Energy and Environment');
 
 -- --------------------------------------------------------
 
@@ -475,7 +517,14 @@ CREATE TABLE `total_periods_tracker` (
 --
 
 INSERT INTO `total_periods_tracker` (`subject`, `total_periods`, `date`) VALUES
-('Fundamentals of Web Technology', 4, '2024-02-27');
+('Fundamentals of Web Technology', 4, '2024-02-27'),
+('Fundamentals of Web Technology', 1, '2024-03-04'),
+('Fundamentals of Web Technology', 1, '2024-03-04'),
+('Fundamentals of Web Technology', 4, '2024-03-20'),
+('Fundamentals of Web Technology', 1, '2024-03-15'),
+('Fundamentals of Web Technology', 1, '2024-03-15'),
+('Fundamentals of Web Technology', 1, '2024-03-15'),
+('Fundamentals of Web Technology', 1, '2024-03-15');
 
 -- --------------------------------------------------------
 
@@ -487,21 +536,16 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `subject` varchar(255) NOT NULL
+  `subject` varchar(255) NOT NULL,
+  `user_type` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `subject`) VALUES
-(3, 'liswin', '$2y$10$Y.oKPM1uog4xpPHPaeconuvxPORQpJwx4yQUxE/3oJ4ZEjGQCn/.K', 'Multimedia'),
-(4, 'anu', '$2y$10$2yuvCmfmW8q7HalOYCzrkO8k21RQDmSfsrLu6p5cmV1GO4/6GWgGG', 'Solar Power Technologies'),
-(5, 'oggy', '$2y$10$zv/IHMvA1tsOkuvYPI5gCeUNy.xYG6dPHCylP36tGt/pSr2WpTZEO', 'Product Design'),
-(9, 'thajbi', '$2y$10$SvPNIlnQDDCj22cCX9f1lehP/nLk.HE105Kx9EkLZbFINaZmcXftm', 'Renewable Energy Technologies'),
-(10, 'thajbi', '$2y$10$Jn7s4qtYNyo8Av3MHEPt1.2uYVcrn0aW/keoC16.iRXwHM/rAaHVa', 'Solar Power Technologies'),
-(11, 'gg', '$2y$10$Qc.v5Im9.to3pXhjpcvZ2uJHp4V0M.eoShNxDjrFTlJr677WClEeC', 'Concepts of IoT'),
-(12, 'jibinesh', '$2y$10$zvmcNFtRa0TF5HX6elC3xuF5VVetZcsHc79vkWqvNspuMjYA0xKlC', 'Fundamentals of Web Technology');
+INSERT INTO `users` (`id`, `username`, `password`, `subject`, `user_type`) VALUES
+(1, 'jibinesh', '$2y$10$aWclcpz88BMsIAwF/LpL7OIt2JLvqvGYJmhFj6UG.bTJ4Q/EqHHzi', 'Fundamentals of Web Technology', NULL);
 
 --
 -- Indexes for dumped tables
@@ -713,7 +757,7 @@ ALTER TABLE `energy_conservation_management_attendance`
 -- AUTO_INCREMENT for table `fundamentals_of_web_technology_attendance`
 --
 ALTER TABLE `fundamentals_of_web_technology_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `introduction_to_hybrid_and_electric_vehicles_attendance`
@@ -779,7 +823,7 @@ ALTER TABLE `solar_power_technologies_attendance`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -797,7 +841,7 @@ ALTER TABLE `sustainable_development_attendance`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

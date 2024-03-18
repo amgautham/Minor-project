@@ -1,10 +1,11 @@
 <?php
 include('db.php');
 session_start();
-$a1 = $a2 = $a3 = $a4 = $a5 = "";
+$a1 = $a2 = $a3 = $a4 = $a5 = $a6 = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['login'])) {
+    if (isset($_POST['login'])) 
+    {
         // Sign In Logic
         $username = $_POST['usernamelog'];
         $password = $_POST['passwordlog'];
@@ -45,46 +46,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $stmt->close(); // Close the statement
-    } elseif (isset($_POST['signup'])) {
+    }
+    elseif (isset($_POST['signup'])) 
+    {
         // Sign Up Logic
         $username = $_POST['username'];
         $password = $_POST['password'];
         $subject = $_POST['subject'];
-
+    
         // Check if the username is already taken
         $username_check_stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
         $username_check_stmt->bind_param("s", $username);
         $username_check_stmt->execute();
         $username_check_result = $username_check_stmt->get_result();
-
+    
         if (!$username_check_result) {
             // Check for query execution failure
             echo "Error checking username availability: " . $conn->error;
         } else {
             if ($username_check_result->num_rows > 0) {
                 $a4 = "Username already exists!";
-                exit; // Stop execution if the username is taken
-            }
-
-            // Use prepared statements to insert user data securely
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $insert_stmt = $conn->prepare("INSERT INTO users (username, password, subject) VALUES (?, ?, ?)");
-            $insert_stmt->bind_param("sss", $username, $hashed_password, $subject);
-
-            if (!$insert_stmt) {
-                // Check for query preparation failure
-                echo "Error preparing user insertion: " . $conn->error;
+                //exit; // Stop execution if the username is taken
             } else {
-                if ($insert_stmt->execute()) {
-                    header("Location: /Minor-project/main/ae_main.html");
-                    exit;
+                // Check if the subject is already taken
+                $subject_check_stmt = $conn->prepare("SELECT * FROM users WHERE subject = ?");
+                $subject_check_stmt->bind_param("s", $subject); // Corrected parameter binding
+                $subject_check_stmt->execute();
+                $subject_check_result = $subject_check_stmt->get_result();
+    
+                if (!$subject_check_result) {
+                    // Check for query execution failure
+                    echo "Error checking subject availability: " . $conn->error;
                 } else {
-                    $a5 = "Error registering user!";
+                    if ($subject_check_result->num_rows > 0) {
+                        $a6 = "Subject already exists!";
+                        //exit; // Stop execution if the subject is taken
+                    } else {
+                        // Use prepared statements to insert user data securely
+                        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                        $insert_stmt = $conn->prepare("INSERT INTO users (username, password, subject) VALUES (?, ?, ?)");
+                        $insert_stmt->bind_param("sss", $username, $hashed_password, $subject);
+    
+                        if (!$insert_stmt) {
+                            // Check for query preparation failure
+                            echo "Error preparing user insertion: " . $conn->error;
+                        } else {
+                            if ($insert_stmt->execute()) {
+                                header("Location: /Minor-project/main/ae_main.php");
+                                exit;
+                            } else {
+                                $a5 = "Error registering user!";
+                            }
+                            // Close the insert statement
+                        }
+                    }
                 }
-                $insert_stmt->close(); // Close the insert statement
             }
-            $username_check_stmt->close(); // Close the username check statement
         }
+        $insert_stmt->close();
+        $username_check_stmt->close();
+        exit;
     }
 }
 ?>
@@ -351,7 +372,7 @@ a:hover {
                     <!-- Add other options as needed -->
                 </select>
                 <?php
-                echo "<p>$a3</p>";
+                echo "<p>$a6</p>";
                 ?>
             </div>
             <div class="button-container">

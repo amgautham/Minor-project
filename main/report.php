@@ -185,7 +185,6 @@ $result_table = $conn->query($sql_table);
 if ($result_table->num_rows > 0) {
     $row_table = $result_table->fetch_assoc();
     $table_name = $row_table['table_name'];
-    //echo "<h2>Table name for $subject: $table_name</h2>";
 
     // Proceed with the rest of the code using $table_name
     if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
@@ -204,6 +203,7 @@ if ($result_table->num_rows > 0) {
 
         $result = $conn->query($query);
 
+        // Check if any attendance records exist between the start and end dates
         if ($result->num_rows > 0) {
             echo "<table border='1'>
                     <tr>
@@ -213,14 +213,11 @@ if ($result_table->num_rows > 0) {
                         <th>Attendance Percentage</th>
                     </tr>";
 
-                    $i=0;
             while ($row = $result->fetch_assoc()) {
                 $rollno = $row['rollno'];
                 $name = $row['name'];
                 $total_attended = $row['total_attended'];
-                if($i==0)
-                echo"<h1>Total periods : $total_attended</h1>";
-                $i++;
+
                 // Fetch total periods attended sum
                 $tquery = "SELECT SUM(total_periods) AS total_periods_sum FROM total_periods_tracker WHERE date BETWEEN '$formatted_start_date' AND '$formatted_end_date'";
                 $total_periods_result = $conn->query($tquery);
@@ -249,7 +246,8 @@ echo "<tr>
 
             echo "</table>";
         } else {
-            echo "No records found.";
+            // If no records found, display a message
+            echo "No attendance records found between $start_date and $end_date.";
         }
     }
 } else {

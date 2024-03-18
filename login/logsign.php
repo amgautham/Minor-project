@@ -51,65 +51,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     elseif (isset($_POST['signup'])) 
     {
-        // Sign Up Logic
         $username = $_POST['username'];
-        $password = $_POST['password'];
-        $subject = $_POST['subject'];
-    
-        // Check if the username is already taken
-        $username_check_stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-        $username_check_stmt->bind_param("s", $username);
-        $username_check_stmt->execute();
-        $username_check_result = $username_check_stmt->get_result();
-    
-        if (!$username_check_result) {
-            // Check for query execution failure
-            echo "Error checking username availability: " . $conn->error;
+    $password = $_POST['password'];
+    $subject = $_POST['subject'];
+
+    // Check if the username is already taken
+    $username_check_stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $username_check_stmt->bind_param("s", $username);
+    $username_check_stmt->execute();
+    $username_check_result = $username_check_stmt->get_result();
+
+    if (!$username_check_result) {
+        // Check for query execution failure
+        echo "Error checking username availability: " . $conn->error;
+    } else {
+        if ($username_check_result->num_rows > 0) {
+            $a4 = "Username already exists!";
         } else {
-            if ($username_check_result->num_rows > 0) {
-                $a4 = "Username already exists!";
-                //exit; // Stop execution if the username is taken
+            // Check if the subject is already taken
+            $subject_check_stmt = $conn->prepare("SELECT * FROM users WHERE subject = ?");
+            $subject_check_stmt->bind_param("s", $subject);
+            $subject_check_stmt->execute();
+            $subject_check_result = $subject_check_stmt->get_result();
+
+            if (!$subject_check_result) {
+                // Check for query execution failure
+                echo "Error checking subject availability: " . $conn->error;
             } else {
-                // Check if the subject is already taken
-                $subject_check_stmt = $conn->prepare("SELECT * FROM users WHERE subject = ?");
-                $subject_check_stmt->bind_param("s", $subject); // Corrected parameter binding
-                $subject_check_stmt->execute();
-                $subject_check_result = $subject_check_stmt->get_result();
-    
-                if (!$subject_check_result) {
-                    // Check for query execution failure
-                    echo "Error checking subject availability: " . $conn->error;
+                if ($subject_check_result->num_rows > 0) {
+                    $a6 = "Subject already exists!";
                 } else {
-                    if ($subject_check_result->num_rows > 0) {
-                        $a6 = "Subject already exists!";
-                        //exit; // Stop execution if the subject is taken
+                    // Use prepared statements to insert user data securely
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    $user_type = 'user'; // Default user type value
+                    $insert_stmt = $conn->prepare("INSERT INTO users (username, password, subject, user_type) VALUES (?, ?, ?, ?)");
+                    $insert_stmt->bind_param("ssss", $username, $hashed_password, $subject, $user_type);
+
+                    if (!$insert_stmt) {
+                        // Check for query preparation failure
+                        echo "Error preparing user insertion: " . $conn->error;
                     } else {
-                        // Use prepared statements to insert user data securely
-                        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                        $insert_stmt = $conn->prepare("INSERT INTO users (username, password, subject) VALUES (?, ?, ?)");
-                        $insert_stmt->bind_param("sss", $username, $hashed_password, $subject);
-    
-                        if (!$insert_stmt) {
-                            // Check for query preparation failure
-                            echo "Error preparing user insertion: " . $conn->error;
+                        if ($insert_stmt->execute()) {
+                            //echo "Sucess";
+                            $_SESSION['username'] = $username;
+                            $_SESSION['subject'] = $subject;
+                            $_SESSION['user_type'] = $user_type;
+                            header("Location: /Minor-project/main/ae_main.php");
+                            exit; // Redirect to ae_main.php after successful registration
                         } else {
-                            if ($insert_stmt->execute()) {
-                                header("Location: /Minor-project/main/ae_main.php");
-                                exit;
-                            } else {
-                                $a5 = "Error registering user!";
-                            }
-                            
+                            $a5 = "Error registering user!";
                         }
-                        $insert_stmt->close();
                     }
+                    $insert_stmt->close();
                 }
-                $subject_check_stmt->close();
             }
+            $subject_check_stmt->close();
         }
-        
-        $username_check_stmt->close();
-        exit;
+    }
+    $username_check_stmt->close();
     }
 }
 ?>

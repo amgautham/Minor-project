@@ -276,6 +276,14 @@ if (!isset($_SESSION['username'])) {
                     
                 </div>
             </div>
+            <div class="work">
+                <img src="editm.jpg">
+                <div class="layer" onclick="navigateTo('ed.php')">
+                    <h2>Edit Attendance Report</h2>
+                    <p>Allows you to view and modify attendance records for a specific date.</p>
+                    
+                </div>
+            </div>
         </div>
         <a href="ed.php" class="btn">See more</a>
     </div>

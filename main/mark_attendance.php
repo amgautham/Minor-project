@@ -129,7 +129,7 @@ if (!isset($_SESSION['username'])) {
         if ($result_table->num_rows > 0) {
             $row_table = $result_table->fetch_assoc();
             $table_name = $row_table['table_name'];
-            echo "Table name for $subject: $table_name";
+            //echo "Table name for $subject: $table_name";
             // Proceed with the rest of the code using $table_name
         } else {
             echo "Table name not found for $subject";

@@ -238,7 +238,7 @@ if (!isset($_SESSION['username'])) {
                 <li><a href="../login/logout.php" class="btn">Logout</a></li>
             </ul>
         </nav>
-        <div class="header-text" style="margin-top: 50px;">
+        <div class="header-text" style="margin-top: 10px;">
             <h1>Hi, Welcome to <span>AttendWise Elect</span> <br></h1>
             
         </div>

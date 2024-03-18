@@ -213,11 +213,14 @@ if ($result_table->num_rows > 0) {
                         <th>Attendance Percentage</th>
                     </tr>";
 
+                    $i=0;
             while ($row = $result->fetch_assoc()) {
                 $rollno = $row['rollno'];
                 $name = $row['name'];
                 $total_attended = $row['total_attended'];
-
+                if($i==0)
+                echo"<h1>Total periods : $total_attended</h1>";
+                $i++;
                 // Fetch total periods attended sum
                 $tquery = "SELECT SUM(total_periods) AS total_periods_sum FROM total_periods_tracker WHERE date BETWEEN '$formatted_start_date' AND '$formatted_end_date'";
                 $total_periods_result = $conn->query($tquery);

@@ -77,16 +77,16 @@ if (!isset($_SESSION['username'])) {
      <div style="padding-top:50px;" class="container">
      
         <div class="tile-container">
-            <div class="tile" onclick="navigateTo('allocate.php')">
+            <div class="tile" onclick="navigateTo('../main/allocate.php')">
                 <h2>Allocate students with open elective subjects</h2>
             </div>
-            <div class="tile" onclick="navigateTo('am1.php')">
+            <div class="tile" onclick="navigateTo('../main/mark_attendance.php')">
                 <h2>Mark Attendance</h2>
             </div>
-            <div class="tile" onclick="navigateTo('edit.php')">
+            <div class="tile" onclick="navigateTo('../main/ed.php')">
                 <h2>Edit Attendance</h2>
             </div>
-            <div class="tile" onclick="navigateTo('report.php')">
+            <div class="tile" onclick="navigateTo('../main/report.php')">
                 <h2>View Attendance Report</h2>
             </div>
         </div>

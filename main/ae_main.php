@@ -235,21 +235,10 @@ if (!isset($_SESSION['username'])) {
         <nav>
             <img src="logo.jpeg" class="logo" alt="" height="60px">
             <ul id="sidemenu">
-                <li><a href="#header">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li class="dropdown">
-                    <button class="dropbtn">Profile <i class="fa fa-caret-down"></i></button>
-                    <div class="dropdown-content">
-                        <a href="#">View Profile</a>
-                        <a href="#">Edit Profile</a>
-                        <a href="#">Settings</a>
-                        <a href="../login/logout.php">Logout</a>
-                    </div>
-                </li> <!-- Profile dropdown -->
+                <li><a href="../login/logout.php" class="btn">Logout</a></li>
             </ul>
         </nav>
-        <div class="header-text" style="margin-top: 80px;">
+        <div class="header-text" style="margin-top: 50px;">
             <h1>Hi, Welcome to <span>AttendWise Elect</span> <br></h1>
             
         </div>
@@ -285,7 +274,8 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </div>
         </div>
-        <a href="ed.php" class="btn">See more</a>
+        
+        
     </div>
 </div>
 

@@ -1,3 +1,13 @@
+<?php
+session_start(); // Start the session
+
+if (!isset($_SESSION['username'])) {
+    // Redirect to the login page
+    header("Location: /Minor-project/login/logsign.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,18 +15,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Report</title>
     <style>
-        /* Basic styling for the form */
+        /* Global styles */
         body {
             font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
         }
 
-        form {
+        .container {
+            max-width: 1200px;
             margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Form styles */
+        form {
             text-align: center;
+            margin-bottom: 20px;
         }
 
         form input[type="date"] {
             margin: 5px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
         }
 
         form input[type="submit"] {
@@ -24,24 +49,27 @@
             background-color: #007bff;
             color: #fff;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
         }
 
-        /* Styling for the table */
+        /* Table styles */
         table {
-            margin: 20px auto;
+            width: 100%;
             border-collapse: collapse;
-            width: 80%;
+            margin-top: 20px;
         }
 
         th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
+            border: 1px solid #ddd;
+            padding: 10px;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #007bff;
+            color: #fff;
+            text-align: left;
         }
 
         /* Circular progress bar */
@@ -62,35 +90,89 @@
             height: 100%;
             border-radius: 50%;
             background-color: #007bff;
-            clip-path: polygon(50% 50%, 50% 0%, 0% 0%);
-            transform-origin: bottom center;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+            transform-origin: center;
             transform: rotate(0deg);
+            transition: transform 0.5s ease-in-out; /* Add smooth transition */
         }
 
         .percentage-text {
             text-align: center;
             margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Additional styles */
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        form label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        form input[type="submit"] {
+            margin-left: 10px;
+        }
+        .menu-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 
-<form method="post">
-    <label for="start_date">Start Date:</label>
-    <input type="date" id="start_date" name="start_date">
+<div class="container">
+    <h1>Attendance Report</h1>
 
-    <label for="end_date">End Date:</label>
-    <input type="date" id="end_date" name="end_date">
+    <form method="post">
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date">
 
-    <input type="submit" value="Submit">
-</form>
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date">
 
+        <input type="submit" value="Submit">
+    </form>
+    
 <?php
 // Include the database connection file
 include('db.php');
 
 // Start session
-session_start();
+//session_start();
 
 // Get subject from session
 $subject = $_SESSION['subject'];
@@ -103,7 +185,7 @@ $result_table = $conn->query($sql_table);
 if ($result_table->num_rows > 0) {
     $row_table = $result_table->fetch_assoc();
     $table_name = $row_table['table_name'];
-    echo "<h2>Table name for $subject: $table_name</h2>";
+    //echo "<h2>Table name for $subject: $table_name</h2>";
 
     // Proceed with the rest of the code using $table_name
     if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
@@ -143,22 +225,23 @@ if ($result_table->num_rows > 0) {
                 $total_periods_sum = $total_periods_row['total_periods_sum'];
 
                 // Calculate attendance percentage
-                $attendance_percentage = ($total_attended / $total_periods_sum) * 100;
+                $attendance_percentage = 0;
+$rotation_angle = 0;
 
-                // Calculate rotation angle for the fill
-                $rotation_angle = $attendance_percentage * 3.6;
+if ($total_periods_sum != 0) {
+    $attendance_percentage = ($total_attended / $total_periods_sum) * 100;
+    $rotation_angle = $attendance_percentage * 3.6;
+}
 
-                echo "<tr>
-                        <td>$rollno</td>
-                        <td>$name</td>
-                        <td>$total_attended</td>
-                        <td>
-                            <div class='progress-circle'>
-                                <div class='progress-circle-fill' style='transform: rotate($rotation_angle deg)'></div>
-                            </div>
-                            <div class='percentage-text'>$attendance_percentage%</div>
-                        </td>
-                      </tr>";
+echo "<tr>
+        <td>$rollno</td>
+        <td>$name</td>
+        <td>$total_attended</td>
+        <td>
+           
+            <div class='percentage-text'>" . number_format($attendance_percentage, 2) . "%</div>
+        </td>
+      </tr>";
             }
 
             echo "</table>";
@@ -169,6 +252,14 @@ if ($result_table->num_rows > 0) {
 } else {
     echo "Table name not found for $subject";
 }
+
+if ($_SESSION['user_type'] == 'admin') {
+    echo '<button class="menu-button" onclick="window.location.href = \'../temp/menu.php\';">Back to Menu</button>';
+} else {
+    echo '<button class="menu-button" onclick="window.location.href = \'ae_main.php\';">Back to Menu</button>';
+}
+
+
 ?>
 
 </body>

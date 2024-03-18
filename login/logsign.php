@@ -26,13 +26,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $row = $result->fetch_assoc();
                 $stored_password_hash = $row['password'];
                 $sub = $row['subject'];
+                $admin = $row['user_type'];
                 // Verify if the hashed password provided by the user matches the hashed password retrieved from the database
                 if (password_verify($password, $stored_password_hash)) {
                     $_SESSION['username'] = $username;
                     $_SESSION['subject'] = $sub;
+                    $_SESSION['user_type'] = $admin;
                     // Redirect based on user type
                     if ($row['user_type'] === 'admin') {
-                        header("Location: /Minor-project/main/ae_main.php");
+                        header("Location: /Minor-project/temp/menu.php");
                     } else {
                         header("Location: /Minor-project/main/ae_main.php");
                     }
@@ -97,13 +99,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             } else {
                                 $a5 = "Error registering user!";
                             }
-                            // Close the insert statement
+                            
                         }
+                        $insert_stmt->close();
                     }
                 }
+                $subject_check_stmt->close();
             }
         }
-        $insert_stmt->close();
+        
         $username_check_stmt->close();
         exit;
     }

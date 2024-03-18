@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    // Redirect to the login page
+    header("Location: /Minor-project/login/logsign.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,5 +170,10 @@ if ($result_students->num_rows > 0) {
 
 $conn->close();
 ?>
+<center>
+
+    <button  onclick="window.location.href = '../temp/menu.php';">Back to Menu</button>
+</center>
+
 </body>
 </html>

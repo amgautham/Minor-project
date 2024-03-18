@@ -1,3 +1,13 @@
+<?php
+session_start(); // Start the session
+
+if (!isset($_SESSION['username'])) {
+    // Redirect to the login page
+    header("Location: /Minor-project/login/logsign.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,7 +107,7 @@
 
     <?php
     include('db.php');
-    session_start();
+    //session_start();
 
     if (!isset($_SESSION['username']) || !isset($_SESSION['subject'])) {
         header("Location: /login.html");
@@ -194,6 +204,13 @@
             echo "Error updating total periods: " . $conn->error;
         }
     }
+
+    if ($_SESSION['user_type'] == 'admin') {
+        echo '<div class="container"><button class="menu-button" onclick="window.location.href = \'../temp/menu.php\';">Back to Menu</button></div>';
+    } else {
+        echo '<div class="container"><button class="menu-button" onclick="window.location.href = \'ae_main.php\';">Back to Menu</button></div>';
+    }
+    
     ?>
 
 </div>

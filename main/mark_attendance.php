@@ -105,40 +105,48 @@ if (!isset($_SESSION['username'])) {
 </form>
 
 
-    <?php
-    include('db.php');
-    //session_start();
+<?php
+include('db.php');
+//session_start();
 
-    if (!isset($_SESSION['username']) || !isset($_SESSION['subject'])) {
-        header("Location: /login.html");
-        exit;
-    }
+if (!isset($_SESSION['username']) || !isset($_SESSION['subject'])) {
+    header("Location: /login.html");
+    exit;
+}
 
-    $username = $_SESSION['username'];
-    $subject = $_SESSION['subject'];
+$username = $_SESSION['username'];
+$subject = $_SESSION['subject'];
 
-    // Fetch table name for the selected subject from the subjects table
-    $sql_table = "SELECT table_name FROM subjects WHERE subject = '$subject'";
-    $result_table = $conn->query($sql_table);
+// Fetch table name for the selected subject from the subjects table
+$sql_table = "SELECT table_name FROM subjects WHERE subject = '$subject'";
+$result_table = $conn->query($sql_table);
 
-    if (!$result_table) {
-        // Check for query execution failure
-        echo "Error fetching table name: " . $conn->error;
+if (!$result_table) {
+    // Check for query execution failure
+    echo "Error fetching table name: " . $conn->error;
+} else {
+    // Check if any rows were returned
+    if ($result_table->num_rows > 0) {
+        $row_table = $result_table->fetch_assoc();
+        $table_name = $row_table['table_name'];
+        //echo "Table name for $subject: $table_name";
+        // Proceed with the rest of the code using $table_name
     } else {
-        // Check if any rows were returned
-        if ($result_table->num_rows > 0) {
-            $row_table = $result_table->fetch_assoc();
-            $table_name = $row_table['table_name'];
-            //echo "Table name for $subject: $table_name";
-            // Proceed with the rest of the code using $table_name
-        } else {
-            echo "Table name not found for $subject";
-        }
+        echo "Table name not found for $subject";
     }
+}
 
-    $periods = isset($_POST['periods']) ? $_POST['periods'] : 1;
-    $attendance_date = isset($_POST['attendance_date']) ? $_POST['attendance_date'] : date('Y-m-d');
+$periods = isset($_POST['periods']) ? $_POST['periods'] : 1;
+$attendance_date = isset($_POST['attendance_date']) ? $_POST['attendance_date'] : date('Y-m-d');
 
+// Check if attendance has already been marked for this date
+$sql_check_attendance = "SELECT * FROM $table_name WHERE attendance_date = '$attendance_date' LIMIT 1";
+$result_check_attendance = $conn->query($sql_check_attendance);
+
+if ($result_check_attendance && $result_check_attendance->num_rows > 0) {
+    echo "Attendance has already been marked for $attendance_date.";
+    // You can handle this case as per your requirement, for example, redirecting the user or showing a message.
+} else {
     // Fetch students for the selected subject
     $sql = "SELECT * FROM students WHERE open_elective = '$subject'";
     $result = $conn->query($sql);
@@ -210,8 +218,9 @@ if (!isset($_SESSION['username'])) {
     } else {
         echo '<div class="container"><button class="menu-button" onclick="window.location.href = \'ae_main.php\';">Back to Menu</button></div>';
     }
-    
-    ?>
+}
+?>
+
 
 </div>
 

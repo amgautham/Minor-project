@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 secondLeftSection.style.display = 'flex';
             });
           </script>";
-                    $a6 = "Subject already exists!";
+                    $a6 = "Subject already taken!";
                 } else {
                     // Use prepared statements to insert user data securely
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -349,14 +349,14 @@ a:hover {
         <h2>Login</h2>
         <form action="logsign.php" method="post">
             <div class="form-group">
-                <label for="namelog">Name</label>
+                <label for="namelog" style="color: white;">Name</label>
                 <input type="text" id="namelog" name="usernamelog" required=""> <?php
                 echo "<p>$a2</p>" ;
                 ?>
                 
             </div>
             <div class="form-group">
-                <label for="passwordlog">Password</label>
+                <label for="passwordlog" style="color: white;">Password</label>
                 <input type="password" id="passwordlog" name="passwordlog" required="">
                 <?php
                 echo "<p>$a1</p>" ;
@@ -367,7 +367,7 @@ a:hover {
             </div>
 
         </form>
-        <p>Already registered? <a href="#" id="signupLink">SignUp</a></p>
+        <p>Don't have an account? <a href="#" id="signupLink" style="color: white;"><u>SignUp Now</u></a></p>
     </div>
     <div class="second-right-section" style="display: none;">
         <h2>Register</h2>

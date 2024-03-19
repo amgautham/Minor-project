@@ -66,6 +66,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error checking username availability: " . $conn->error;
     } else {
         if ($username_check_result->num_rows > 0) {
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                const rightSection = document.querySelector('.right-section');
+                const secondRightSection = document.querySelector('.second-right-section');
+                const leftSection = document.querySelector('.left-section');
+                const secondLeftSection = document.querySelector('.second-left-section');
+
+                rightSection.style.display = 'none';
+                secondRightSection.style.display = 'flex';
+                leftSection.style.display = 'none';
+                secondLeftSection.style.display = 'flex';
+            });
+          </script>";
             $a4 = "Username already exists!";
         } else {
             // Check if the subject is already taken
@@ -79,6 +92,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Error checking subject availability: " . $conn->error;
             } else {
                 if ($subject_check_result->num_rows > 0) {
+                    echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                const rightSection = document.querySelector('.right-section');
+                const secondRightSection = document.querySelector('.second-right-section');
+                const leftSection = document.querySelector('.left-section');
+                const secondLeftSection = document.querySelector('.second-left-section');
+
+                rightSection.style.display = 'none';
+                secondRightSection.style.display = 'flex';
+                leftSection.style.display = 'none';
+                secondLeftSection.style.display = 'flex';
+            });
+          </script>";
                     $a6 = "Subject already exists!";
                 } else {
                     // Use prepared statements to insert user data securely
@@ -99,6 +125,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             header("Location: /Minor-project/main/ae_main.php");
                             exit; // Redirect to ae_main.php after successful registration
                         } else {
+                            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                const rightSection = document.querySelector('.right-section');
+                const secondRightSection = document.querySelector('.second-right-section');
+                const leftSection = document.querySelector('.left-section');
+                const secondLeftSection = document.querySelector('.second-left-section');
+
+                rightSection.style.display = 'none';
+                secondRightSection.style.display = 'flex';
+                leftSection.style.display = 'none';
+                secondLeftSection.style.display = 'flex';
+            });
+          </script>";
                             $a5 = "Error registering user!";
                         }
                     }

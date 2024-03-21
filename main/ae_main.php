@@ -228,22 +228,53 @@ if (!isset($_SESSION['username'])) {
         }
     </style>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AttendWise Elect</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Assuming you have a separate CSS file -->
+</head>
 <body>
 
 <div id="header">
     <div class="container">
         <nav>
-            <img src="download.png" class="logo" alt="" height="60px">
+            <img src="download.png" class="logo" alt="Logo" height="60px">
             <ul id="sidemenu">
                 <li><a href="../login/logout.php" class="btn">Logout</a></li>
             </ul>
         </nav>
         <div class="header-text" style="margin-top: 10px;">
-            <h1>Hi, Welcome to <span>AttendWise Elect</span> <br></h1>
-            
-        </div>
+    <?php
+    $currentTime = date("H");
+    $greeting = "";
+
+    if ($currentTime < 12) {
+        $greeting = "Good Morning";
+    } elseif ($currentTime < 17) {
+        $greeting = "Good Afternoon";
+    } else {
+        $greeting = "Good Evening";
+    }
+    ?>
+    <h1><?php echo $greeting . " " . $_SESSION['username']; ?></h1>
+    <!--<h1><span>Welcome to AttendWise Elect</span></h1>-->
+</div>
+
+
+
+
+
     </div>
 </div>
+
+
+
+</body>
+</html>
+
 
 <div id="portfolio">
     <div class="container">

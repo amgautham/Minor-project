@@ -233,7 +233,7 @@ if (!isset($_SESSION['username'])) {
 <div id="header">
     <div class="container">
         <nav>
-            <img src="logo.jpeg" class="logo" alt="" height="60px">
+            <img src="download.png" class="logo" alt="" height="60px">
             <ul id="sidemenu">
                 <li><a href="../login/logout.php" class="btn">Logout</a></li>
             </ul>

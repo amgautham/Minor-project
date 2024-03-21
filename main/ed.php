@@ -34,7 +34,7 @@ if (!isset($_SESSION['username'])) {
 
         h2 {
             text-align: center;
-            color: #007bff;
+            color: #d000ff;
             margin-bottom: 20px;
         }
 
@@ -49,7 +49,7 @@ if (!isset($_SESSION['username'])) {
         }
 
         th {
-            background-color: #007bff;
+            background-color: #d000ff;
             color: #fff;
         }
 
@@ -64,7 +64,7 @@ if (!isset($_SESSION['username'])) {
         .action-form button {
             padding: 8px 16px;
             margin-right: 5px;
-            background-color: #007bff;
+            background-color: #d000ff;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -72,11 +72,11 @@ if (!isset($_SESSION['username'])) {
         }
 
         .action-form button:hover {
-            background-color: #0056b3;
+            background-color: #d000ff;
         }
         .container button {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #d000ff;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -85,7 +85,7 @@ if (!isset($_SESSION['username'])) {
         }
 
         .container button:hover {
-            background-color: #0056b3;
+            background-color: #d000ff;
         }
     </style>
 </head>

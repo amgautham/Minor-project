@@ -46,7 +46,7 @@ if (!isset($_SESSION['username'])) {
 
         form input[type="submit"] {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #d000ff;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -67,7 +67,7 @@ if (!isset($_SESSION['username'])) {
         }
 
         th {
-            background-color: #007bff;
+            background-color: #d000ff;
             color: #fff;
             text-align: left;
         }
@@ -84,7 +84,7 @@ if (!isset($_SESSION['username'])) {
         /* Additional styles */
         h1 {
             text-align: center;
-            color: #007bff;
+            color: #d000ff;
             margin-bottom: 30px;
         }
 
@@ -115,7 +115,7 @@ if (!isset($_SESSION['username'])) {
             width: 200px;
             margin: 20px auto;
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #d000ff;
             color: #fff;
             border: none;
             border-radius: 5px;

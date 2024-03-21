@@ -34,7 +34,7 @@ if (!isset($_SESSION['username'])) {
 
         h2 {
             text-align: center;
-            color: #007bff;
+            color: #d000ff;
             margin-bottom: 20px;
         }
 
@@ -49,7 +49,7 @@ if (!isset($_SESSION['username'])) {
         }
 
         th {
-            background-color: #007bff;
+            background-color: #d000ff;
             color: #fff;
         }
 
@@ -66,7 +66,7 @@ if (!isset($_SESSION['username'])) {
 
         button[type="submit"] {
             padding: 8px 16px;
-            background-color: #007bff;
+            background-color: #d000ff;
             color: #fff;
             border: none;
             border-radius: 5px;

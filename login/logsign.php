@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['user_type'] = $admin;
                     // Redirect based on user type
                     if ($row['user_type'] === 'admin') {
-                        header("Location: /Minor-project/temp/menu.php");
+                        header("Location: /Minor-project/admin/menu.php");
                     } else {
                         header("Location: /Minor-project/main/ae_main.php");
                     }

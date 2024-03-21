@@ -1,0 +1,90 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body, html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #1a1a2e; /* Dark Navy Blue */
+    user-select: none; /* Disable text selection */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 80%; /* Adjusted width for better responsiveness */
+}
+
+.tile-container {
+    display: flex;
+    flex-direction: row; /* Change this from wrap to row for horizontal alignment */
+    justify-content: space-around;
+}
+
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 45%; /* Adjusted width for better responsiveness */
+    border: 2px solid #16213e; /* Dark Blue */
+    margin: 20px;
+    padding: 20px;
+    cursor: pointer;
+    background-color: #0f3460; /* Royal Blue */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    position: relative;
+    border-radius: 15px; /* Add this line to make the tiles curved */
+}
+
+
+.tile:hover {
+    background-color: #515168; /* Light Red */
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 46, 46, 0.2);
+}
+
+.tile:hover button {
+    display: inline-block;
+}
+
+.tile:hover h2 {
+    color: #ffffff; /* White */
+    transform: scale(1.1); /* Slightly increase size on hover */
+}
+
+h2 {
+    color: #e8e8e8; /* Light Grey */
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease-in-out; /* Smooth transition for all changes */
+}
+
+p {
+    color: #a3a3a3; /* Grey */
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+button {
+    display: none;
+    width: 45%; /* Adjusted width for better responsiveness */
+    margin: 5px 2.5% 5px 0; /* Adjusted margin for spacing between buttons */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.tile:hover button {
+    display: inline-block;
+}
+
+button:hover {
+    background-color: #16213e; /* Dark Blue */
+    color: #ffffff; /* White */
+    transform: scale(1.1);
+}

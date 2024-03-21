@@ -4,52 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insert Student Data</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 400px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        select,
+        input[type="text"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            transition: all 0.3s ease;
+        }
+
+        select:focus,
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .icon {
+            position: absolute;
+            top: 37%;
+            right: 8%;
+            color: #777;
+        }
+
+        .icon i {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .icon i:hover {
+            color: #333;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+        }
+    </style>
 </head>
 <body>
-    <h2>Insert Student Data</h2>
-    <form action="insert.php" method="post">
-        <label for="branch">Branch:</label><br>
-        <select id="branch" name="branch" required>
-            <option value="">Select Branch</option>
-            <option value="Electronics Engineering(EE)">Electronics Engineering(EE)</option>
-            <option value="Civil Engineering(CE)">Civil Engineering(CE)</option>
-            <option value="Computer Engineering(CT)">Computer Engineering(CT)</option>
-            <option value="Electrical & Electronics Engineering(EEE)">Electrical & Electronics Engineering(EEE)</option>
-            <option value="Mechanical Engineering(ME)">Mechanical Engineering(ME)</option>
-        </select><br>
-        
-        <label for="subject">Subject:</label><br>
-        <select name="subject" id="sub" required>
-            <option disabled selected>(Select Subject)</option>
-            <option value="Introduction to IoT">Introduction to IoT</option>
-            <option value="Fundamentals of Web Technology">Fundamentals of Web Technology</option>
-            <option value="Multimedia">Multimedia</option>
-            <option value="Cloud Computing">Cloud Computing</option>
-            <option value="Renewable Energy and Environment">Renewable Energy and Environment</option>
-            <option value="Sustainable Development">Sustainable Development</option>
-            <option value="Disaster Management (CE)">Disaster Management (CE)</option>
-            <option value="Rural Technology">Rural Technology</option>
-            <option value="Solar Power Technologies">Solar Power Technologies</option>
-            <option value="Energy Conservation & Management">Energy Conservation & Management</option>
-            <option value="Electrification of Residential Buildings">Electrification of Residential Buildings</option>
-            <option value="Electric Vehicles & Traction">Electric Vehicles & Traction</option>
-            <option value="Concepts of IoT">Concepts of IoT</option>
-            <option value="Contemporary Electronics">Contemporary Electronics</option>
-            <option value="Introduction to Hybrid and Electric Vehicles">Introduction to Hybrid and Electric Vehicles</option> 
-            <option value="Introduction to Multimedia">Introduction to Multimedia</option>
-            <option value="Computer Aided Design and Manufacturing">Computer Aided Design and Manufacturing</option>
-            <option value="Operation Research">Operation Research</option>
-            <option value="Renewable Energy Technologies">Renewable Energy Technologies</option>
-            <option value="Product Design">Product Design</option>
-        </select><br><br>
-        
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
-        
-        <label for="rollno">Roll No:</label><br>
-        <input type="text" id="rollno" name="rollno" required><br><br>
-        
-        <input type="submit" value="Submit">
-    </form>
+    <div class="container">
+        <h2>Insert Student Data</h2>
+        <form action="insert.php" method="post">
+            <label for="branch">Branch:</label>
+            <select id="branch" name="branch" required>
+                <option value="">Select Branch</option>
+                <option value="Electronics Engineering(EE)">Electronics Engineering(EE)</option>
+                <option value="Civil Engineering(CE)">Civil Engineering(CE)</option>
+                <option value="Computer Engineering(CT)">Computer Engineering(CT)</option>
+                <option value="Electrical & Electronics Engineering(EEE)">Electrical & Electronics Engineering(EEE)</option>
+                <option value="Mechanical Engineering(ME)">Mechanical Engineering(ME)</option>
+            </select>
+            
+            <label for="subject">Subject:</label>
+            <select name="subject" id="sub" required>
+                <option disabled selected>(Select Subject)</option>
+                <option value="Introduction to IoT">Introduction to IoT</option>
+                <option value="Fundamentals of Web Technology">Fundamentals of Web Technology</option>
+                <option value="Multimedia">Multimedia</option>
+                <option value="Cloud Computing">Cloud Computing</option>
+                <option value="Renewable Energy and Environment">Renewable Energy and Environment</option>
+                <option value="Sustainable Development">Sustainable Development</option>
+                <!-- Add more options here -->
+            </select>
+            
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="rollno">Roll No:</label>
+            <input type="text" id="rollno" name="rollno" required>
+            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 </html>

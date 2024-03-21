@@ -218,7 +218,7 @@ if ($result_check_attendance && $result_check_attendance->num_rows > 0) {
    
 
     if ($_SESSION['user_type'] == 'admin') {
-        echo '<div class="container"><button class="menu-button" onclick="window.location.href = \'../temp/menu.php\';">Back to Menu</button></div>';
+        echo '<div class="container"><button class="menu-button" onclick="window.location.href = \'../admin/menu.php\';">Back to Menu</button></div>';
     } else {
         echo '<div class="container"><button class="menu-button" onclick="window.location.href = \'ae_main.php\';">Back to Menu</button></div>';
     }

@@ -188,7 +188,7 @@ if ($result_table->num_rows > 0) {
                         <th>Roll No</th>
                         <th>Name</th>
                         <th>Total Periods Attended</th>
-                        <th>Total Periods</th>
+                        
                         <th>Attendance Percentage</th>
                     </tr>";
     
@@ -226,7 +226,7 @@ if ($result_table->num_rows > 0) {
                         <td>$rollno</td>
                         <td>$name</td>
                         <td>$total_attended</td>
-                        <td>$total_periods_sum</td>
+                        
                         <td style='color: $color;'>$attendance_percentage%</td>
                       </tr>";
             }
@@ -247,7 +247,7 @@ if ($result_table->num_rows > 0) {
     
 
 if ($_SESSION['user_type'] == 'admin') {
-    echo '<button class="menu-button" onclick="window.location.href = \'../temp/menu.php\';">Back to Menu</button>';
+    echo '<button class="menu-button" onclick="window.location.href = \'../admin/menu.php\';">Back to Menu</button>';
 } else {
     echo '<button class="menu-button" onclick="window.location.href = \'ae_main.php\';">Back to Menu</button>';
 }

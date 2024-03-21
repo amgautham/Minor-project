@@ -152,11 +152,9 @@ if (isset($_POST['submit_edit_attendance'])) {
     echo "<div class='container'>";
     echo "<p>Attendance data updated successfully.</p>";
     echo "</div>";
-    if ($_SESSION['user_type'] == 'admin') {
-        header("Location: /Minor-project/temp/menu.php");
-    } else {
+    
         header("Location: /Minor-project/main/ed.php");
-    }
+    
     
     
     exit;

@@ -137,10 +137,10 @@ if (!isset($_SESSION['username'])) {
 
     <form method="post">
         <label for="start_date">Start Date:</label>
-        <input type="date" id="start_date" name="start_date">
+        <input type="date" id="start_date" name="start_date" required>
 
         <label for="end_date">End Date:</label>
-        <input type="date" id="end_date" name="end_date">
+        <input type="date" id="end_date" name="end_date" required>
 
         <input type="submit" value="Submit">
     </form>

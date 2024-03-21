@@ -117,6 +117,12 @@ $sql_branches = "SELECT DISTINCT branch FROM students ORDER BY branch ASC";
 $result_branches = $conn->query($sql_branches);
 
 echo "<h1>Open Elective Allocation</h1>";
+if (isset($_SESSION['success_message'])) {
+    echo "<center><STRONG style='color: green; text-align: center;'>".$_SESSION['success_message']."</STRONG></center>";
+    // Unset the session variable to remove the message after displaying it
+    unset($_SESSION['success_message']);
+}
+
 echo "<form action='' method='post'>";
 echo "<label for='branch'>Select Branch:</label>";
 echo "<select name='branch' id='branch'>";
@@ -128,6 +134,7 @@ if ($result_branches->num_rows > 0) {
 }
 echo "</select>";
 echo "<button type='submit'>Filter</button>";
+
 echo "</form>";
 
 // Fetching students

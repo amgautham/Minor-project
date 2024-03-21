@@ -226,6 +226,25 @@ if (!isset($_SESSION['username'])) {
         .dropdown:hover .dropdown-content {
             display: block;
         }
+    .copyright {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background: #d000ff;
+    color: white; /* Change text color to white */
+    font-weight: 300;
+    position: fixed; /* Fix the position */
+    bottom: 0; /* Align it to the bottom */
+    left: 0; /* Align it to the left */
+    z-index: 999; /* Ensure it's on top of other content */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+.copyright p{
+    color: #f9f9f9;
+}
+.copyright i{
+    color: white;
+}
     </style>
 </head>
 <!DOCTYPE html>
@@ -268,6 +287,7 @@ if (!isset($_SESSION['username'])) {
 
 
     </div>
+    
 </div>
 
 
@@ -311,8 +331,6 @@ if (!isset($_SESSION['username'])) {
 </div>
 
 
-
-
 <script>
     function navigateTo(url)
         {
@@ -335,4 +353,9 @@ if (!isset($_SESSION['username'])) {
 </script>
 
 </body>
+<div class="copyright">
+<p>Copyright © MTI CT DEPARTMENT.</p>
+</div>
+
+
 </html>

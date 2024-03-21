@@ -136,6 +136,13 @@ if (!$result_table) {
     }
 }
 
+function updateTotalPeriods($conn, $periods, $subject, $attendance_date) {
+    $sql_update_total_periods = "INSERT INTO total_periods_tracker (subject, total_periods, date) VALUES ('$subject', '$periods', '$attendance_date')";
+    if ($conn->query($sql_update_total_periods) !== TRUE) {
+        echo "Error updating total periods: " . $conn->error;
+    }
+} 
+
 $periods = isset($_POST['periods']) ? $_POST['periods'] : 1;
 $attendance_date = isset($_POST['attendance_date']) ? $_POST['attendance_date'] : date('Y-m-d');
 
@@ -205,12 +212,7 @@ if ($result_check_attendance && $result_check_attendance->num_rows > 0) {
         // Update total periods
         updateTotalPeriods($conn, $periods, $subject, $attendance_date);
 
-        function updateTotalPeriods($conn, $periods, $subject, $attendance_date) {
-            $sql_update_total_periods = "INSERT INTO total_periods_tracker (subject, total_periods, date) VALUES ('$subject', '$periods', '$attendance_date')";
-            if ($conn->query($sql_update_total_periods) !== TRUE) {
-                echo "Error updating total periods: " . $conn->error;
-            }
-        }
+       
     }
 
    

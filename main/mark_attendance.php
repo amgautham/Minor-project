@@ -192,27 +192,31 @@ if ($result_check_attendance && $result_check_attendance->num_rows > 0) {
 
     // Insert attendance data into the database
     if (isset($_POST['submit_attendance'])) {
-        foreach ($_POST['attendance'] as $student_id => $attended_periods) {
-            $periods_attended = count($attended_periods);
-            $sql = "SELECT rollno, name FROM students WHERE id = '$student_id'";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $rollno = $row['rollno'];
-                $name = $row['name'];
-                $sql_insert = "INSERT INTO $table_name (rollno, name, periods_attended, attendance_date) VALUES ('$rollno', '$name', '$periods_attended', '$attendance_date')";
-                if ($conn->query($sql_insert) !== TRUE) {
-                    echo "Error: " . $sql_insert . "<br>" . $conn->error;
+        // Check if attendance data is present in $_POST and is an array
+        if (isset($_POST['attendance']) && is_array($_POST['attendance'])) {
+            foreach ($_POST['attendance'] as $student_id => $attended_periods) {
+                $periods_attended = count($attended_periods);
+                $sql = "SELECT rollno, name FROM students WHERE id = '$student_id'";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $rollno = $row['rollno'];
+                    $name = $row['name'];
+                    $sql_insert = "INSERT INTO $table_name (rollno, name, periods_attended, attendance_date) VALUES ('$rollno', '$name', '$periods_attended', '$attendance_date')";
+                    if ($conn->query($sql_insert) !== TRUE) {
+                        echo "Error: " . $sql_insert . "<br>" . $conn->error;
+                    }
+                } else {
+                    echo "Student details not found for ID: $student_id";
                 }
-            } else {
-                echo "Student details not found for ID: $student_id";
             }
+            echo "Attendance data inserted successfully.";
+            // Update total periods
+            updateTotalPeriods($conn, $periods, $subject, $attendance_date);
+        } else {
+            // Handle case where no attendance data is present
+            echo "No attendance data found.";
         }
-        echo "Attendance data inserted successfully.";
-        // Update total periods
-        updateTotalPeriods($conn, $periods, $subject, $attendance_date);
-
-       
     }
 
    

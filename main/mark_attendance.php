@@ -204,14 +204,16 @@ if ($result_check_attendance && $result_check_attendance->num_rows > 0) {
         echo "Attendance data inserted successfully.";
         // Update total periods
         updateTotalPeriods($conn, $periods, $subject, $attendance_date);
-    }
 
-    function updateTotalPeriods($conn, $periods, $subject, $attendance_date) {
-        $sql_update_total_periods = "INSERT INTO total_periods_tracker (subject, total_periods, date) VALUES ('$subject', '$periods', '$attendance_date')";
-        if ($conn->query($sql_update_total_periods) !== TRUE) {
-            echo "Error updating total periods: " . $conn->error;
+        function updateTotalPeriods($conn, $periods, $subject, $attendance_date) {
+            $sql_update_total_periods = "INSERT INTO total_periods_tracker (subject, total_periods, date) VALUES ('$subject', '$periods', '$attendance_date')";
+            if ($conn->query($sql_update_total_periods) !== TRUE) {
+                echo "Error updating total periods: " . $conn->error;
+            }
         }
     }
+
+   
 
     if ($_SESSION['user_type'] == 'admin') {
         echo '<div class="container"><button class="menu-button" onclick="window.location.href = \'../temp/menu.php\';">Back to Menu</button></div>';

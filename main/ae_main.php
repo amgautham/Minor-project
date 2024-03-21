@@ -18,6 +18,8 @@ if (!isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AttendWise Elect</title>
     <link rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e285f2fd98.js" crossorigin="anonymous"></script>
+
     <style>
         * {
             margin: 0;
@@ -354,7 +356,7 @@ if (!isset($_SESSION['username'])) {
 
 </body>
 <div class="copyright">
-<p>Copyright © MTI CT DEPARTMENT.</p>
+<p>Copyright © MTI CT DEPARTMENT <i class="fa-solid fa-heart"></i></p>
 </div>
 
 

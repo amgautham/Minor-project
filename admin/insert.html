@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Student Data</title>
+</head>
+<body>
+    <h2>Insert Student Data</h2>
+    <form action="insert.php" method="post">
+        <label for="branch">Branch:</label><br>
+        <select id="branch" name="branch" required>
+            <option value="">Select Branch</option>
+            <option value="Electronics Engineering(EE)">Electronics Engineering(EE)</option>
+            <option value="Civil Engineering(CE)">Civil Engineering(CE)</option>
+            <option value="Computer Engineering(CT)">Computer Engineering(CT)</option>
+            <option value="Electrical & Electronics Engineering(EEE)">Electrical & Electronics Engineering(EEE)</option>
+            <option value="Mechanical Engineering(ME)">Mechanical Engineering(ME)</option>
+        </select><br>
+        
+        <label for="subject">Subject:</label><br>
+        <select name="subject" id="sub" required>
+            <option disabled selected>(Select Subject)</option>
+            <option value="Introduction to IoT">Introduction to IoT</option>
+            <option value="Fundamentals of Web Technology">Fundamentals of Web Technology</option>
+            <option value="Multimedia">Multimedia</option>
+            <option value="Cloud Computing">Cloud Computing</option>
+            <option value="Renewable Energy and Environment">Renewable Energy and Environment</option>
+            <option value="Sustainable Development">Sustainable Development</option>
+            <option value="Disaster Management (CE)">Disaster Management (CE)</option>
+            <option value="Rural Technology">Rural Technology</option>
+            <option value="Solar Power Technologies">Solar Power Technologies</option>
+            <option value="Energy Conservation & Management">Energy Conservation & Management</option>
+            <option value="Electrification of Residential Buildings">Electrification of Residential Buildings</option>
+            <option value="Electric Vehicles & Traction">Electric Vehicles & Traction</option>
+            <option value="Concepts of IoT">Concepts of IoT</option>
+            <option value="Contemporary Electronics">Contemporary Electronics</option>
+            <option value="Introduction to Hybrid and Electric Vehicles">Introduction to Hybrid and Electric Vehicles</option> 
+            <option value="Introduction to Multimedia">Introduction to Multimedia</option>
+            <option value="Computer Aided Design and Manufacturing">Computer Aided Design and Manufacturing</option>
+            <option value="Operation Research">Operation Research</option>
+            <option value="Renewable Energy Technologies">Renewable Energy Technologies</option>
+            <option value="Product Design">Product Design</option>
+        </select><br><br>
+        
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="rollno">Roll No:</label><br>
+        <input type="text" id="rollno" name="rollno" required><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

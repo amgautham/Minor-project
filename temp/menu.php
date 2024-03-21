@@ -19,15 +19,17 @@ if (!isset($_SESSION['username'])) {
     <style>
         
 
-.navbar {
-    background-color: #06134b;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    transition: all 0.5s ease; /* Add transition for smooth effect */
-    text-align: center; /* Center the text */
-}
+        .navbar {
+            background-color: #06134b;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            transition: all 0.5s ease;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure navbar stays on top */
+        }
 
 .buttoncontainer {
     display: inline-block;
@@ -54,6 +56,18 @@ if (!isset($_SESSION['username'])) {
 .change .bar3 {
     transform: translate(0, -13px) rotate(45deg);
 }
+.logout-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #00008B; /* Red color for logout */
+            transition: background-color 0.3s;
+        }
+
+        .logout-link:hover {
+            background-color: #00FFFF; /* Darker red on hover */
+        }
 </style>
 
     
@@ -67,7 +81,7 @@ if (!isset($_SESSION['username'])) {
         
                     
                     
-                    <a href="../login/logout.php">Logout</a>
+            <a href="../login/logout.php" class="logout-link">Logout</a>
                     
                 
                 

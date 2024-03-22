@@ -209,6 +209,7 @@ if ($result_table->num_rows > 0) {
     
                 if ($total_periods_sum != 0) {
                     $attendance_percentage = ($total_attended / $total_periods_sum) * 100;
+                    $formatted_percentage = number_format($attendance_percentage, 2, '.', '');
                     $rotation_angle = $attendance_percentage * 3.6;
                 }
     
@@ -227,7 +228,7 @@ if ($result_table->num_rows > 0) {
                         <td>$name</td>
                         <td>$total_attended</td>
                         
-                        <td style='color: $color;'>$attendance_percentage%</td>
+                        <td style='color: $color;'>$formatted_percentage%</td>
                       </tr>";
             }
     

@@ -411,7 +411,7 @@ a:hover {
 					<option value="Operation Research">Operation Research</option>
 					<option value="Renewable Energy Technologies">Renewable Energy Technologies</option>
 					<option value="Product Design">Product Design</option>
-                    <!-- Add other options as needed -->
+                
                 </select>
                 <?php
                 echo "<p>$a6</p>";

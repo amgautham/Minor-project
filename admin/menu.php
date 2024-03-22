@@ -94,16 +94,16 @@ if (!isset($_SESSION['username'])) {
             <div class="tile" onclick="navigateTo('../admin/allocate.php')">
                 <h2>Allocate students with open elective subjects</h2>
             </div>
-            <div class="tile" onclick="navigateTo('../main/mark_attendance.php')">
-                <h2>Mark Attendance</h2>
+            <div class="tile" onclick="navigateTo('../admin/insert.html')">
+                <h2>Add Student</h2>
             </div>
-            <div class="tile" onclick="navigateTo('../main/ed.php')">
-                <h2>Edit Attendance</h2>
+            <!-- <div class="tile" onclick="navigateTo('../main/ed.php')"> -->
+                <!-- <h2>Edit Attendance</h2>
             </div>
             <div class="tile" onclick="navigateTo('../main/report.php')">
                 <h2>View Attendance Report</h2>
             </div>
-        </div>
+        </div> -->
     </div>
 
     
